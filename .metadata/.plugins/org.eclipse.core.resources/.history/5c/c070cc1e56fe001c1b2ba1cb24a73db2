@@ -1,0 +1,5 @@
+package com.probee.waggle.model.dto;
+
+public class FileDto {
+
+}
