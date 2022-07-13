@@ -17,10 +17,25 @@ public class WaggleApplication {
 	public static String goindex() {
 		return "index";
 	}
-
+	
+	@RequestMapping("/home")
+	public static String gohome() {
+		return "home";
+	}
+	
 	@RequestMapping("/map")
 	public static String gomap() {
 		return "map";
+	}
+	
+	@RequestMapping("/login")
+	public static String gologin() {
+		return "login";
+	}
+	
+	@RequestMapping("/board")
+	public static String goboard() {
+		return "board";
 	}
 	
 }

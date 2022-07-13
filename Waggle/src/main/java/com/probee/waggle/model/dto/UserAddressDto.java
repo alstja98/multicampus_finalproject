@@ -1,8 +1,8 @@
 package com.probee.waggle.model.dto;
 
 public class UserAddressDto {
-	private int ua_Code;
-	private int ua_Post;
+	private int ua_UCode;
+	private String ua_Post;
 	private String ua_Addr;
 	private String ua_DAddr;
 	private Double ua_Lat;
@@ -13,9 +13,9 @@ public class UserAddressDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserAddressDto(int ua_Code, int ua_Post, String ua_Addr, String ua_DAddr, Double ua_Lat, Double ua_Lng) {
+	public UserAddressDto(int ua_Code, String ua_Post, String ua_Addr, String ua_DAddr, Double ua_Lat, Double ua_Lng) {
 		super();
-		this.ua_Code = ua_Code;
+		this.ua_UCode = ua_Code;
 		this.ua_Post = ua_Post;
 		this.ua_Addr = ua_Addr;
 		this.ua_DAddr = ua_DAddr;
@@ -23,19 +23,19 @@ public class UserAddressDto {
 		this.ua_Lng = ua_Lng;
 	}
 
-	public int getUa_Code() {
-		return ua_Code;
+	public int getUa_UCode() {
+		return ua_UCode;
 	}
 
-	public void setUa_Code(int ua_Code) {
-		this.ua_Code = ua_Code;
+	public void setUa_UCode(int ua_Code) {
+		this.ua_UCode = ua_Code;
 	}
 
-	public int getUa_Post() {
+	public String getUa_Post() {
 		return ua_Post;
 	}
 
-	public void setUa_Post(int ua_Post) {
+	public void setUa_Post(String ua_Post) {
 		this.ua_Post = ua_Post;
 	}
 
@@ -73,7 +73,7 @@ public class UserAddressDto {
 
 	@Override
 	public String toString() {
-		return "UserAddressDto [ua_Code=" + ua_Code + ", ua_Post=" + ua_Post + ", ua_Addr=" + ua_Addr + ", ua_DAddr="
+		return "UserAddressDto [ua_Code=" + ua_UCode + ", ua_Post=" + ua_Post + ", ua_Addr=" + ua_Addr + ", ua_DAddr="
 				+ ua_DAddr + ", ua_Lat=" + ua_Lat + ", ua_Lng=" + ua_Lng + "]";
 	}
 	

@@ -1,0 +1,8 @@
+package com.probee.waggle.model.service;
+
+public class mapServiceImpl implements mapService{
+	
+	@Autowired
+	
+
+}

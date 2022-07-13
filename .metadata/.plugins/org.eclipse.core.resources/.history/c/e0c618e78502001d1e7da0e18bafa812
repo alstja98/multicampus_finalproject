@@ -1,0 +1,31 @@
+package com.probee.waggle.model.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.probee.waggle.model.dto.MapDto;
+import com.probee.waggle.model.service.MapService;
+
+
+@Controller
+@RequestMapping("/map")
+public class MapController {
+	
+	@Autowired
+	private MapService mapService;
+	
+	@GetMapping("/post")
+	public String selectList(Model model, String search_post) {
+		List<MapDto> list = mapService.selectList();
+		model.addAttribute("list", list);
+		model.addAttribute("search_post", search_post);
+		System.out.println("랄라");
+		return "map";
+	
+	}
+}
