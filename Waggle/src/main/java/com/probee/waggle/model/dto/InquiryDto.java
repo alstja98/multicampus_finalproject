@@ -1,13 +1,13 @@
 package com.probee.waggle.model.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class InquiryDto {
 	private int in_Code;
 	private int in_UCode;
 	private String in_Type;
 	private String in_Title;
-	private Date in_Date;
+	private LocalDate in_Date;
 	private String in_Content;
 	private String in_Stat;
 	private String in_Answer;
@@ -18,7 +18,7 @@ public class InquiryDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InquiryDto(int in_Code, int in_UCode, String in_Type, String in_Title, Date in_Date, String in_Content,
+	public InquiryDto(int in_Code, int in_UCode, String in_Type, String in_Title, LocalDate in_Date, String in_Content,
 			String in_Stat, String in_Answer, Boolean in_Chk) {
 		super();
 		this.in_Code = in_Code;
@@ -64,11 +64,11 @@ public class InquiryDto {
 		this.in_Title = in_Title;
 	}
 
-	public Date getIn_Date() {
+	public LocalDate getIn_Date() {
 		return in_Date;
 	}
 
-	public void setIn_Date(Date in_Date) {
+	public void setIn_Date(LocalDate in_Date) {
 		this.in_Date = in_Date;
 	}
 

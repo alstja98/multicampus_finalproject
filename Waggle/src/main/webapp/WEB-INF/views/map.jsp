@@ -13,25 +13,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
 function kakaopost(){
 
     new daum.Postcode({
         	oncomplete: function(data) {
-        		document.querySelector(".searchbar").value = data.address;
-        		var z = data.zonecode;
-        		document.querySelector("#var1").value = z.toString();
+        		var a = data.address;
+        		var p = data.zonecode;
+        		document.querySelector("#var1").value = p.toString();
+        		document.querySelector(".searchbar").value = a;
         		document.getElementById('submit').click();
-        		/*
-        		var search = ${search_post};
-        		console.log(search);
-        		console.log(z.toString());
-        		console.log(document.querySelector("#var1").value);
-        		console.log(02453); */
-        		
+   				searchLngLat();
         	}
     	}).open();
+    
 	};
 	
+	
+
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Sarabun");
@@ -273,14 +272,14 @@ div {
 				class="searchbar" onclick="kakaopost()"> 
 				<img
 				src="https://images-na.ssl-images-amazon.com/images/I/41gYkruZM2L.png"
-				alt="Magnifying Glass" class="button" onclick="searchLngLat()">
+				alt="Magnifying Glass" class="button" onclick="kakaopost()">
 		</div>
 		
-		<form action="/map/post" method="GET">
-		<input type="submit" style="display:none" id="submit">
+		<form id="addr_filter" method="post">
+		<input type="button" style="display:none" id="submit">
 		<input id="var1" type="hidden" name="search_post" value="" >
 		</form>
-			
+		
 		<div class="blank">
 		</div>
 		
@@ -291,17 +290,12 @@ div {
 					data-search-on-list="counter"></span>
 				<div class="list-wrap">
 					<ul class="list" data-search-on-list="list">
-					<c:forEach var="addr" items="${list}">
-						<li class="list-item" data-search-on-list="list-item">
-							<a href="" class="list-item-link">${addr.home_DAddr}
-							<span class="item-list-subtext">우편번호: ${addr.home_Post}</span></a>
-						</li>
-					</c:forEach>
 					</ul>
 				</div>
 			</div>
 			
 			<div class="horizontal-scroll-wrapper squares">
+			<!-- 
 			<c:forEach var="media" items="${list}">
 				<div>
 				<c:set var="type" value="${media.getFi_Nm()}" />
@@ -313,6 +307,7 @@ div {
 				</c:if>
 				</div>
 			</c:forEach>
+			-->
 			</div>
 			
 			<div class="blank">
@@ -324,6 +319,7 @@ div {
 		<div id="map">
 			
 		</div>
+		
 	</div>
 
 	<%@ include file="footer.jsp"%>
@@ -332,16 +328,81 @@ div {
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.5012767241426, 127.039600248343), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	for(let i=0; i<4; i++){
+		
+	}
+	// 모든 회원들 지도에 뿌려주기
+	$(function(){
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		var userAddr = new Array();
+		var userimg = new Array();
+		var userCode = new Array();
+		<c:forEach var="list" items="${uaddr}">
+		userAddr.push("${list.getUa_Addr()}");
+		userimg.push("${list.getFi_Nm()}");
+		userCode.push("${list.getUser_Code()}");
+		</c:forEach>
+	
+		for(var i=0; i<=3; i++) {
+			window['imageSrc'+i] = "hello" +i;
+			console.log(window['imageSrc'+i]);
+		}
+		
+		for(let i=0; i<userAddr.length; i++){
+			
+			if(userimg[i] != ""){
+				window['imageSrc'+i] = userimg[i]; // 마커이미지의 주소입니다    
+			}else {
+				window['imageSrc'+i] = '/images/profile/profile_default.jpg';
+			}
+			
+		    var imageSize = new kakao.maps.Size(64, 69); // 마커이미지의 크기입니다
+		    var imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		    
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(userAddr[i], function(result, status) {
+	
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+	
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        marker = new kakao.maps.Marker({
+			            position: coords,
+			            image: new kakao.maps.MarkerImage(window['imageSrc'+i], imageSize, imageOption),
+			            clickable: true
+			        });
+			        marker.setMap(map);
+			        map.setCenter(coords);
+			        
+					//마커 클릭시 해당 꿀벌의 마이페이지로 이동하도록
+				    kakao.maps.event.addListener(marker, 'click', function(){
+				    	window.open("/mypage/other?ucode="+userCode[i],"a",'height=' + screen.height + ',width=' + screen.width + 'fullscreen=yes');
+				    });
+			    } else {
+			    	console.log("에러");
+			    }
+			});  
+		    
+		 
+		}
+		
+		  
+		
+	});
+		
+	
 
 	function searchLngLat(){
-		$('.table-container').show();
-
 		var gap = document.querySelector(".searchbar").value;
 
 		// 주소-좌표 변환 객체를 생성합니다
@@ -354,13 +415,14 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 		     if (status === kakao.maps.services.Status.OK) {
 
 		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
 		        // 결과값으로 받은 위치를 마커로 표시합니다
 		        var marker = new kakao.maps.Marker({
 		            map: map,
 		            position: coords
 		        });
-
+				
+		        // 지도 레벨 더 확대
+		        map.setLevel(1);
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
 		    } else {
@@ -369,7 +431,56 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 		});    
 	}
 	
-	
+ 	
+	//주소창에 검색시 상세주소와 해당 영상들 나오게 하기
+	$('#submit').on("click", function(){ // #submit버튼은 kakaopost() 함수에서 click되도록 구성
+		let search_post = $('#var1').val();
+		let data = {search_post : search_post}
+		
+		$.ajax({
+			type : "post",
+			url : "/map/search",
+			data : data,
+			success : function(result){
+					$('.table-container').show();
+					if(result.length == 0){
+						$(".horizontal-scroll-wrapper").empty();
+						$(".list").empty();
+						$(".horizontal-scroll-wrapper").append('<div>해당 매물에 대한 정보가 없습니다.</div>');
+						$(".horizontal-scroll-wrapper").append('<div>해당 매물에 대한 정보가 없습니다.</div>');
+						$(".horizontal-scroll-wrapper").append('<div>해당 매물에 대한 정보가 없습니다.</div>');
+					}else{
+						//중복되는 상세주소 없앤 새로운 배열 만들기
+						$(".horizontal-scroll-wrapper").empty();
+						$(".list").empty();
+						let DAddr = new Array();
+						for(let i=0; i<result.length; i++){
+							DAddr.push(result[i].home_DAddr);
+						}
+						
+						let unique_DAddr = Array.from(new Set(DAddr));
+						//중복제거한 상세주소 페이지에 뿌리기
+						for(let i=0; i<unique_DAddr.length; i++){
+							$(".list").append('<li class="list-item" data-search-on-list="list-item"><a href="" class="list-item-link">'+unique_DAddr[i]+'<span class="item-list-subtext">우편번호: '+result[i].home_Post+'</span></a></li>');
+						}
+					
+						//검색 주소에 해당하는 영상들 페이지에 뿌려주기
+						for(let i=0; i<result.length; i++){
+							if(result[i].fi_Nm.includes('jpg')){
+								$(".horizontal-scroll-wrapper").append('<div><a href=""><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+							}else if(result[i].fi_Nm.includes('mp4')){
+								$(".horizontal-scroll-wrapper").append('<div><a href=""><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+							}
+						}
+					}
+					
+			},
+			error : function(){
+				console.log("ajax 에러");
+			}
+		})
+
+	});// function 종료
 	</script>
 </body>
 <script>

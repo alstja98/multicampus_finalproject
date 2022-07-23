@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,7 +80,7 @@ nav ul li a, nav ul li a:visited {
 	display: block;
 	padding: 0 20px;
 	line-height: 70px;
-	background: #ffffff;
+	background: transparent;
 	color: #000000;
 	text-decoration: none;
 }
@@ -104,7 +105,7 @@ nav ul li a:hover, nav ul li a:visited:hover {
 		<div class="container">
 			<div class="brand-container">
 				<span class="img01">
-					<a href="#!"> 
+					<a href="/home"> 
 						<svg width="45" height="45"
 							fill="none" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -119,15 +120,25 @@ nav ul li a:hover, nav ul li a:visited:hover {
 						</svg>
 					</a>
 				</span>	
-				<a href="#!">Logo</a>
+				<a href="/home">Waggle</a>
 			</div>
 			<div class="nav-container">
 				<nav>
 					<ul class="nav-list">
-						<li><a href="#!">지도</a></li>
-						<li><a href="#!">꿀단지</a></li>
-						<li><a href="#!">마이페이지</a></li>
-						<li><a href="#!">이용내역</a></li>
+						<li><a href="/map/user">지도</a></li>
+						<li><a href="/board/list">꿀단지</a></li>
+						<c:if test="${user_Code == null }">
+						<li><a href="/login">마이페이지</a></li>
+						</c:if>
+						<c:if test="${user_Code != null }">
+						<li><a href="/mypage_me">마이페이지</a></li>
+						</c:if>
+						<c:if test="${user_Code == null }">
+						<li><a href="/login">이용내역</a></li>
+						</c:if>
+						<c:if test="${user_Code != null }">
+						<li><a href="/history">이용내역</a></li>
+						</c:if>
 						<li><a href="#!">채팅</a></li>
 					</ul>
 				</nav>
@@ -139,7 +150,13 @@ nav ul li a:hover, nav ul li a:visited:hover {
 					</svg>
 					</a>
 					</span>
+					<c:if test="${user_Code == null }">
 					<a href="/login">로그인</a> <span>/</span> <a href="/login">회원가입</a>
+					</c:if>
+					<c:if test="${user_Code != null }">
+					 <b>${user_Nm } 님 환영합니다</b>/<a href="/login/logout">로그아웃</a>
+					 <input type="hidden" name="in_Code" value="${user_Code }">
+					</c:if>
 				</div>
 			</div>
 		</div>

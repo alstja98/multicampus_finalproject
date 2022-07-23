@@ -23,19 +23,33 @@ public class WaggleApplication {
 		return "home";
 	}
 	
-	@RequestMapping("/map")
-	public static String gomap() {
-		return "map";
-	}
-	
 	@RequestMapping("/login")
 	public static String gologin() {
 		return "login";
 	}
-	
-	@RequestMapping("/board")
-	public static String goboard() {
-		return "board";
+
+	@RequestMapping("/inquiry")
+	public static String goinquiry() {
+		return "inquiry";
 	}
 	
+	@RequestMapping("/mypage_me")
+	public static String gomypageme() {
+		return "mypage_me";
+	}
+	
+	@RequestMapping("/profileEdit")
+	public static String goprofileedit() {
+		return "profileEdit";
+	}
+	
+	@RequestMapping("/history")
+	public static String gohistory() {
+		return "history";
+	}
+	
+	@RequestMapping("/chatbot")
+	public static String gochatbot() {
+		return "chatbot";
+	}
 }
