@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>요청상세페이지 수정</title>
+<title>Waggle 요청글 수정</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/guideline.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -14,9 +15,29 @@
 	        oncomplete: function(data) {
 	        	$("#home_Addr").val(data.address);
 	        	$("#home_Post").val(data.zonecode);
+	        	$("#ji_Addr").val(data.jibunAddress);
+	        	$("#road_Addr").val(data.roadAddress);
+	        	
+	        	 //받은 주소값을 위도 경도로 바꿔서 input hidden 값에 value값으로 넣어주기
+                var geocoder = new kakao.maps.services.Geocoder();
+                var addr = $('#home_Addr').val();
+                geocoder.addressSearch(addr, function(result, status) {
+                	
+        		    // 정상적으로 검색이 완료됐으면 
+        		     if (status === kakao.maps.services.Status.OK) {
+        				$("#home_Lat").attr('value',result[0].y);
+        				$("#home_Lng").attr('value',result[0].x);
+        				
+        		    } else {
+        		    	console.log("에러");
+        		    }
+        		});  
 	        }
-	    }).open();		
+	    }).open({
+	    	popupName: 'AddrSearch'
+	    });		
 	}
+	
 </script>
 <style type="text/css">
 
@@ -163,7 +184,7 @@ input[type="date"] {
         		<li><a href="javascript:void(0)">
         		<i class="fa-solid fa-house"></i>
         		</a>
-        		<p>HOME > 꿀단지 > 요청 상세페이지</p>
+        		<p>HOME > 꿀단지 > 요청글 > 수정</p>
         		</li>	
         	</ul>
 		</div>
@@ -177,7 +198,7 @@ input[type="date"] {
 			<input type="hidden" value="${req_dto.req_FCode }" name="req_FCode">
 			<input type="hidden" value="${req_dto.req_HCode }" name="req_HCode">
 			<input type="hidden" value="${req_dto.req_No}" name="req_No">
-			<input type="hidden" value="${req_dto.req_WDate}" name="req_WDate">
+			<input type="hidden" value="${req_dto.req_WDate}" name="req_WDate2">
 			<input type="hidden" name="home_Post" id="home_Post">
 				<table class="ongoing21-content">
 					<tbody style="border-bottom: 1px solid;">
@@ -197,6 +218,10 @@ input[type="date"] {
 							<th><label class="required">집 주소</label><br><br><br></th>
 							<td>
 								<input type="text" placeholder="클릭해서 주소 입력" name="home_Addr" id="home_Addr" readonly="readonly" onclick="kakaopost()" required="required" value="${req_dto.home_Addr}">
+								<input type="hidden" name="home_Lat" id="home_Lat" value="${req_dto.home_Lat}">
+								<input type="hidden" name="home_Lng" id="home_Lng" value="${req_dto.home_Lng}">
+								<input type="hidden" name="ji_Addr" id="ji_Addr" value="${req_dto.home_Addr}">
+								<input type="hidden" name="road_Addr" id="road_Addr" value="${req_dto.home_Addr}">
 								<br><input type="text" placeholder="상세주소(선택)" name="home_DAddr" value="${req_dto.home_DAddr}">
 							</td>
 						</tr>

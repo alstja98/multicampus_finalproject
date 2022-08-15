@@ -6,8 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Waggle 마이페이지</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
 <style>
+
 .middle {
 	margin: 0;
 	padding: 0;
@@ -36,29 +38,39 @@
 	display: inline-block;
 }
 
+#point {
+	color: #487cbd;
+}
+#point:hover{
+	color: #faaa44 !important;
+}
+
+/* 버튼 */
 .button {
-	background: transparent;
-	width: 110px;
-	border-radius: 10px;
-	border: 3px solid;
-	margin-left: 40px;
-	float: right;
+  color: var(--color);
+  transition: 0.25s;
+}
+.button:hover, .button:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+  border-color: var(--hover);
+  color: #fff;
 }
 
-.button p {
-	font-family: "Roboto";
-	text-align: center;
-	text-transform: uppercase;
-	color: #2e2e2e;
-	user-select: none;
-	font-size: 15px;
-	font-weight: bold;
+.button {
+  background: none;
+  border-radius: 10px;
+  border: 3px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  width: 110px;
+  float: right;
+  --color: #262626;
+  --hover: #f9a73d;
+  font-weight:bold;
+  text-align:center;
 }
-
-.button:hover {
-	cursor: pointer;
-}
-
+/* 버튼 */
 .description {
 	height: 70px;
 	background: #ffffff;
@@ -115,25 +127,28 @@
 	overflow: hidden;
 	background: #ffffff;
 	margin-top:30px;
+	font-size:1.2em;
 }
 
 textarea:focus ~ label, textarea:valid ~ label {
 	font-size: 0.75em;
 	color: #999;
 	top: -5px;
+	display:none;
 	-webkit-transition: all 0.225s ease;
 	transition: all 0.225s ease;
+	padding:1.2em;
 }
 
 textarea {
 	border: 1px solid #d4d7e1;
 	box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 5px 10px rgb(0 0 0 / 5%);
-	font-size: 1.5rem;
-	background-color: #e9e9e9;
+	font-size: 1.2rem;
+	background-color: #ffffff;
 	border-radius: 30px;
 	width: 900px;
 	height: 300px;
-	padding:30px;
+	padding:1em;
 }
 
 .styled-input {
@@ -156,11 +171,28 @@ textarea {
 	-webkit-transition: all 0.25s ease;
 	transition: all 0.25s ease;
 	pointer-events: none;
+	text-align:left;
 }
 
 
 .desc-content-button {
 	float: right;
+}
+
+.desc-content-finishlist{
+	margin: 0 auto;
+	width: 1000px;
+	height:900px;
+	overflow-y:auto;
+	display: none;
+	text-align:left;
+}
+
+
+.desc-content-finishlist img{
+	width:300px;
+	height:300px;
+	border-radius:10px;
 }
 
 #bar_container {
@@ -314,6 +346,7 @@ textarea {
 
 .upload-area__drop-zoon:hover {
   border-color: #000000;
+  background-color:#f7f9fa;
 }
 
 .drop-zoon__icon {
@@ -508,6 +541,252 @@ textarea {
   font-size: 1rem;
   color: var(--clr-light-gray);
 }
+
+/* 이용횟수 통계 그림 */
+@keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+@-webkit-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+@-moz-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+@-o-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+.bar-graph {
+  list-style: none;
+  margin: 50px 0px auto;
+}
+
+.bar-wrap {
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -ms-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(149, 149, 149, 0.2);
+  margin-bottom: 10px;
+  height: 27px;
+}
+
+.bar-fill {
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -ms-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-animation: bar-fill 1s;
+  -webkit-animation: bar-fill 1s;
+  -ms-animation: bar-fill 1s;
+  animation: bar-fill 1s;
+  background-color: #979797;
+  display: block;
+  height: 27px;
+  width: 0px;
+}
+
+.bar-graph p {
+  text-align:left;
+  color: #000000;
+  font-family: "Helvetica";
+  font-size: 16px;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+/* 이용횟수 통계 그림 끝 */
+
+/*이용횟수 간단 css */
+#bold{
+	font-weight:bold;
+	color:#fc4f4f;
+}
+
+#ratio{
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#line{
+	width:100%;
+	height:50px;
+	border-bottom: 1px dashed #898989;
+}
+
+
+#ul-left{
+	width:445px;
+	padding:0;
+	padding-left:20px;	
+}
+
+#ul-right{
+	width:420px;
+	padding:0;
+}
+/*이용횟수 간단 css */
+
+/*완료한 리스트 css */
+
+#my-res-list-img {
+	display: inline-block;
+    vertical-align: top;
+    align-self: center;
+    padding: 0px 40px 0px 0px;
+}
+ 
+#my-res-list-text {
+	display:inline-block;
+	width: 550px;
+    height: 300px;
+    padding: 40px 0px 40px 40px;
+    border-left: 1px solid #ebebeb;
+}
+ 
+#my-res-list-content-all:hover{
+	box-shadow: inset 0 0 0 15em #f7f9fa;
+}
+
+#my-res-list-content-all {
+	display: flex;
+    justify-content: center;
+    transition: 1s;
+}
+
+#my-res-list-point {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 550px;
+    height: 60px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+}
+ 
+#my-res-list-dl {
+	display: flex;
+    min-height: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+} 
+
+#my-res-list-dt {
+	line-height: 14px;
+    font-size: 15px;
+    letter-spacing: -.06px;
+    letter-spacing: -.33px;
+    color: rgba(34,34,34,.5);
+}
+
+#my-res-list-dd {
+	margin: 4px 0px 0px 0px;
+    word-break: break-word;
+    line-height: 17px;
+    font-size: 15px;
+    
+}
+ 
+#my-res-list-ltd-box {
+	padding: 0 12px;
+/* 	padding-left: 0;
+	padding-right: 0; */
+	flex: 1;
+} 
+
+.my-res-list-ltd-detail-box {
+	border-left: 1px solid #ebebeb;
+}
+
+#my-res-list-dl-dt-dd {
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#my-res-list-ltd-title {
+	line-height: 22px;
+    padding: 21px 0 12px;
+    font-size: 18px;
+    letter-spacing: -.15px;
+    margin: 0;
+}
+ 
+#my-res-list-stat {
+	display: inline-block;
+	padding-top: 1px;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+ 
+#res-stat {
+	font-weight: 800;
+    border-bottom: 2px solid #222;
+}
+ 
+#my-res-list-title {
+	margin-bottom: 6px;
+    font-size: 18px;
+    letter-spacing: -.09px;
+    font-weight: 400;
+}
+/* 완료한 리스트 css 끝 */
+
+/* 등급 제도 */
+.grade{
+	display:inline-block;
+	height:30px;
+	border-radius:25px;
+	padding:10px;
+	padding-top:0px;
+	padding-bottom:0px;
+	line-height:28px;
+	margin-left:10px;
+	background-color:#110902;
+	font-weight:bold;
+	color:white;
+	
+}
+
+.grade_tooltip{
+	position:relative;
+	color:var(--clr-light-gray);
+	cursor:pointer;
+	transition:color 300ms ease-in-out;
+}
+
+.grade_tooltip:hover{
+	color:var(--clr-gray);
+}
+
+.grade_tooltip-data{
+	position:absolute;
+	top:750%;
+	left:270%;
+	transform: translate(-50%, -125%);
+	min-width: max-content;
+	background-color: var(--clr-white);
+	color: var(--clr-gray);
+	border:1px solid var(--clr-light-gray);
+	padding: 0.625rem 1.25rem;
+	font-weight:500;
+	display:none;
+	color:#898989;
+}
+/* 등급 제도 */
+
+/* 인증서 파일 업로드 글자 hover */
+.confirmspan:hover{
+	color: orange !important;
+}
+
 </style>
 
 
@@ -521,41 +800,93 @@ textarea {
 					<li><a href="javascript:void(0)"> <i
 							class="fa-solid fa-house"></i>
 					</a></li>
-					<p>HOME > 나의 프로필</p>
+					<p>HOME > 마이페이지</p>
 				</ul>
 			</div>
 
 			<div class="middle-profile">
 				<div class="profile" style="text-align: center; display: flex; justify-content: center;">
 					<div class="profile-left" style="display: inline-block">
-						<c:if test = "${user_Pro == null}">
+						<c:if test = "${dto.user_Pro == 0}">
 						<img src="/images/importToJsp/profile_default.jpg"
 							style="width: 100px; height: 100px">
 						</c:if>
-						<c:if test = "${user_Pro != null }">
-						<img src="${fi_Nm }" style="width:100px; height: 100px">
+						<c:if test = "${dto.user_Pro != 0 }">
+						<img src="${Pro_fi_Nm }" style="width:200px; height: 200px; border-radius:200px" onerror=this.src="/images/importToJsp/profile_default.jpg">
 						</c:if>
-						<div style="font-weight: bold; font-size: 20pt">${user_Point } P</div>
+						<div style="font-weight: bold; font-size: 20pt">${dto.user_Point } P</div>
 						<div>
-							<a href="/point/use" style="color: #2d7eac">포인트 충전하기</a>
+							<a href="/point/use" id="point">포인트 충전하기</a>
 						</div>
 					</div>
 					<div class="profile-right"
 						style="display: inline-block; margin-left: 40px; text-align: left">
-						<c:if test="${user_Code != null }">
+						<c:if test="${dto.user_Code != null }">
 						<div>
-							<span
-								style="font-size: 20pt; margin-bottom: 20px; font-weight: bold">${user_Nm}
-								님</span>
+							<span style="font-size: 20pt; margin-bottom: 20px; font-weight: bold">${dto.user_Nm} 님</span>
+							<c:choose>
+								<c:when test="${dto.user_Grade < 0}">
+									<div class="grade" >사기꾼</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 0 and dto.user_Grade < 30}">
+									<div class="grade" >Bronze</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 30 and dto.user_Grade < 46}">
+									<div class="grade" >Silver</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 46 and dto.user_Grade < 61}">
+									<div class="grade" >Gold</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 61 and dto.user_Grade < 101}">
+									<div class="grade">Platinum</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 101}">
+									<div class="grade" >Diamond</div>
+								</c:when>
+							</c:choose>
+							<strong class="grade_tooltip">등급제도란?
+							<span class="grade_tooltip-data"></span>
+							</strong>
 						</div>
-						<div style="font-size: 14pt">나이: ${user_Age}</div>
-						<c:if test="${user_Gender == 'M'}">
+						<c:choose>
+							<c:when test="${dto.user_Age >= 10 and dto.user_Age < 20}">
+								<div style="font-size: 14pt">나이: 10대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 20 and dto.user_Age < 30}">
+								<div style="font-size: 14pt">나이: 20대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 30 and dto.user_Age < 40}">
+								<div style="font-size: 14pt">나이: 30대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 40 and dto.user_Age < 50}">
+								<div style="font-size: 14pt">나이: 40대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 50 and dto.user_Age < 60}">
+								<div style="font-size: 14pt">나이: 50대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 60 and dto.user_Age < 70}">
+								<div style="font-size: 14pt">나이: 60대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 70 and dto.user_Age < 80}">
+								<div style="font-size: 14pt">나이: 70대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 80 and dto.user_Age < 90}">
+								<div style="font-size: 14pt">나이: 80대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 90 and dto.user_Age < 100}">
+								<div style="font-size: 14pt">나이: 90대</div>
+							</c:when>
+							<c:otherwise>
+								<div style="font-size: 14pt">나이: <span style="font-size:11pt">'회원정보 수정'에서 나이를 입력해주세요.</span></div>
+							</c:otherwise>
+						</c:choose>
+						<c:if test="${dto.user_Gender == 'M'}">
 						<div style="font-size: 14pt; margin-bottom: 60px">성별: 남</div>
 						</c:if>
-						<c:if test="${user_Gender == 'F'}">
+						<c:if test="${dto.user_Gender == 'F'}">
 						<div style="font-size: 14pt; margin-bottom: 60px">성별: 여</div>
 						</c:if>
-						<div style="font-size: 14pt; font-weight: bold">내가 딴 꿀 수확량: ${user_Grade}</div>
+						<div style="font-size: 14pt; font-weight: bold">내가 딴 꿀 수확량: ${dto.user_Grade}</div>
 							<div id="bar_container">
 								<div id="progress_bar">
 									<div id="progress_percentage" data-percentage="10">
@@ -594,36 +925,53 @@ textarea {
 							</div>
 
 						<!-- div style="margin-bottom:20px">|--------------|</div> -->
+						<c:if test="${con_ucode != null}">
+							<c:if test="${con_stat == '미확인' }">
+							<span style="font-size: 11pt; color: #898989">업로드한 자격증을 확인중입니다.</span>
+							<span class="confirmspan" style="font-size: 11pt; color: #2d7eac; margin-left: 5px" onclick="showProof();">파일 다시 업로드하기</span>
+							</c:if>
+							<c:if test="${con_stat == '확인' }">
+							<span style="font-size: 11pt; color: #5c5c5c; font-weight:bold">${dto.user_Nm }님은 <span style="color:red">인증된 공인중개사</span>이십니다!</span>
+							</c:if>
+							<c:if test="${con_stat == '반려' }">
+							<span style="font-size: 11pt; color: #898989">신청한 자격증이 반려되었습니다.</span>
+							<span class="confirmspan" style="font-size: 11pt; color: #2d7eac; margin-left: 5px" onclick="showProof();">파일 다시 업로드하기</span>
+							</c:if>
+							<c:if test="${con_stat == '처리중' }">
+							<span style="font-size: 11pt; color: #898989">신청한 자격증이 처리중입니다.</span>
+							</c:if>
+						</c:if>
+						<c:if test="${con_ucode == null}">
 						<div>
 							<span style="font-size: 11pt; color: #898989">공인중개사이신가요?</span>
-							<span style="font-size: 11pt; color: #2d7eac; margin-left: 5px" onclick="showProof();">인증하기</span>
+							<span class="confirmspan" style="font-size: 11pt; color: #2d7eac; margin-left: 5px" onclick="showProof();">인증하기</span>
 						</div>
+						</c:if>
 					</c:if>
 					</div>
 				</div>
 				<div class="profile-bottom">
-						<div class="button" onclick="location.href='/mypage/profileEdit?ua_UCode=${user_Code}'">
+						<div class="button" id="uedit" onclick="location.href='/mypage/profileEdit?ua_UCode=${user_Code}'">
 							<a><p style="margin:5px">회원정보 수정</p></a>
 						</div>
 					</div>
 				<div class="description" style="text-align: center">
 					<div class="desc-nav">
 						<ul class="desc-list">
-							<li><a href="#!" onclick="showDescMe();"
-								style="color: #000000" class="desc-list1">자기소개</a></li>
-							<li><a href="#!" onclick="showFinishlist();"
-								class="desc-list2">완료된 리스트</a></li>
-							<li><a href="#!" class="desc-list3">이용 횟수</a></li>
+							<li><a href="#!" onclick="showDescMe();" style="color: #000000" class="desc-list1">자기소개</a></li>
+							<li><a href="#!" onclick="showFinishlist();" class="desc-list2">완료된 리스트</a></li>
+							<li><a href="#!" onclick="showUsage();" class="desc-list3">이용 횟수</a></li>
 						</ul>
 					</div>
 					<div class="desc-content-aboutme">
 						<div class="desc-content">
-							<c:if test="${ user_Intro == null}">
+							<c:if test="${ dto.user_Intro == null}">
 								<form action="/mypage/descInsert" method="POST">
 								<input type="hidden" name="code" value="${user_Code }">
 								<div class="styled-input">
 									<textarea required name="description"></textarea>
-									<label>자기소개를 입력해주세요.</label>
+									<label>자기소개 예시:<br>
+									 제 이름은 OOO입니다. 현재까지 Waggle에서 총 ?건의 수행을 완료하였고 모두 좋은 꿀벌 평가를 받았습니다!<br>요구하는 사항을 꼼꼼하게 반영해서 신속하게 수행하겠습니다 :)</label>
 								</div>
 								<div></div>
 								<div class="desc-content-button">
@@ -631,23 +979,24 @@ textarea {
 								</div>
 								</form>	
 							</c:if>
-							<c:if test="${ user_Intro != null }">
-								<form action="/mypage/descEdit" method="POST">
-								<input type="hidden" name="code" value="${user_Code}">
+							<c:if test="${ dto.user_Intro != null }">
+								<form name="form" method="POST">
 								<div class="desc-intro" data-behaviour="search-on-list" style="text-align:initial">
 									<span class="counter"	data-search-on-list="counter">
-										${user_Intro}
+										<div >${dto.user_Intro}</div>
 									</span>
 								</div>
 								<div class="styled-input" id="desc-edit-input" style="display:none">
-										<textarea id="desc-text" required name="description">${user_Intro}</textarea>
-										<label>${user_Intro }</label>
+										<textarea id="desc-text" required  name="description">${dto.user_Intro}</textarea>
+										<label>${dto.user_Intro }</label>
 								</div>
 								<div class="desc-content-button">
+									<input type="hidden" name="code" value="${user_Code}">
 									<div class="button" id="desc-edit" style="display: inline-block; width: 150px; margin-top:20px">
 										<p style="margin: 5px">자기소개 수정하기</p>
 									</div>
-									<input type="submit" class="button" id="desc-edit-finish" value="수정 완료" style="display: inline-block; margin-top:20px; display:none; padding:5px; font-size:15px; font-weight:bold">
+									<input type="submit" class="button" value="자기소개 삭제" onclick="javascript: form.action='/mypage/descDelete';" style="display: inline-block; margin-top:20px; padding:5px; font-size:15px; font-weight:bold">
+									<input type="submit" class="button" id="desc-edit-finish" value="수정 완료" onclick="javascript: form.action='/mypage/descEdit';" style="display: inline-block; margin-top:20px; display:none; padding:5px; font-size:15px; font-weight:bold">
 									<div class="button" id="desc-edit-cancel" style="display: inline-block; margin-top:20px; display:none">
 										<p style="margin: 5px">수정 취소</p>
 									</div>
@@ -657,15 +1006,83 @@ textarea {
 						</div>
 					</div>
 					<div></div>
-					<a class="req_No" href="/board/detail?req_No=4"><div class="desc-content-finishlist"
-						style="margin: 0 auto; width: 900px; display: none">
+					<div class="desc-content-finishlist">
 					</div>
-					</a>
+					<div class="desc-usage" style="margin: 0 auto; width: 900px; padding-top: 60px; display: none">
+						<div class="usage-left" style="width:420px; display:inline-block; float: right; padding-top:15px">
+							<ul class="bar-graph" id="ul-left">
+								<li>
+									<p style="font-size:20pt; font-weight:bold"><꿀벌></p>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[모든 기간] 의뢰 수행완료 비율</p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">지원</span>한 의뢰 총 갯수 : ${resTotal } 건<p>
+									<p>${dto.user_Nm} 님이 현재 <span id="bold">진행중</span>인 의뢰 갯수 : ${resTotal-resFinish-resCancel-resCancelZero } 건<p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">수행완료</span>한 의뢰 갯수 : ${resFinish } 건<p>
+									<p>현재까지 의뢰 시작 24시간 후 <span id="bold">수행취소</span>한 의뢰 갯수 : ${resCancel } 건<p>
+									<br>
+									<p id="ratio">꿀벌 지원 총 ${resTotal }건 중 수행완료 ${resFinish}건</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width:${ratio2}%;">${ratio2 }%</span>
+									</div>
+								</li>
+							</ul>
+							<div id="line" style="margin-left:20px; width: 110%;"></div>
+							<ul class="bar-graph" id="ul-left">
+								<li>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[최근 3개월] 의뢰 수행완료 비율</p>
+									<p>${dto.user_Nm} 님이 최근 3개월 동안 <span id="bold">지원</span>한 의뢰 총 갯수 : ${resTotal3M } 건<p>
+									<p>${dto.user_Nm} 님이 최근 3개월 동안 <span id="bold">수행완료</span>한 의뢰 갯수 : ${resFinish3M } 건<p>
+									<p>최근 3개월간 의뢰 시작 24시간 후 <span id="bold">수행취소</span>한 의뢰 갯수 : ${resCancel3M } 건<p>
+									<br>
+									<p id="ratio">꿀벌 지원 총 ${resTotal3M }건 중 수행완료 ${resFinish3M}건</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width:${ratio2_3M}%;">${ratio2_3M }%</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="usage-right" style="width: 420px; display: inline-block; border-right: 1px dashed #898989; padding-right:35px">
+							<ul class="bar-graph" id="ul-right">
+								<li>
+									<p style="font-size:20pt; font-weight:bold"><의뢰인></p>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[모든 기간] 의뢰 대비 꿀벌평가 완료 비율</p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">의뢰</span>한 게시글 총 갯수 : ${reqTotal } 건<p>
+									<p>${dto.user_Nm} 님이 현재 <span id="bold">의뢰중</span>인 게시글 갯수 : ${reqTotal - reqFinish -reqCancel} 건<p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">꿀벌 평가 완료</span>한 게시글 : ${reqFinish } 건<p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">요청취소</span>한 게시글 갯수 : ${reqCancel } 건<p>
+									<br>
+									<p id="ratio">의뢰글 총 ${reqTotal }건 중 꿀벌평가 ${reqFinish }건 완료</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width: ${ratio}%;">${ratio }%</span>
+									</div>
+								</li>
+							</ul>
+							<div id="line"></div>
+							<ul class="bar-graph" id="ul-right">
+								<li>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[최근 3개월] 의뢰 대비 꿀벌평가 완료 비율</p>
+									<p>${dto.user_Nm} 님이 최근 3개월 간 <span id="bold">의뢰</span>한 게시글 총 갯수 : ${reqTotal3M } 건<p>
+									<p>${dto.user_Nm} 님이 최근 3개월 간 <span id="bold">꿀벌 평가 완료</span>한 게시글 : ${reqFinish3M } 건<p>
+									<p>${dto.user_Nm} 님이 최근 3개월 간 <span id="bold">요청취소</span>한 게시글 갯수 : ${reqCancel3M } 건<p>
+									<br>
+									<p id="ratio">의뢰글 총 ${reqTotal3M }건 중 꿀벌평가 ${reqFinish3M }건 완료</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width: ${ratio3M}%;">${ratio3M }%</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
+					<form action="/mypage/confirm" method="post" enctype="multipart/form-data">
 						<!-- Upload Area -->
 						<div id="uploadArea" class="upload-area" style="display:none; margin-top:50px">
 						  <div class="upload-area__header">
+						  	<c:if test="${condto == 0}">
 						    <h1 class="upload-area__title">Upload your file</h1>
+						   	</c:if>
+						   	<c:if test="${condto != 0}">
+						   	<h1 class="upload-area__title">Change your file</h1>
+						   	</c:if>
 						    <p class="upload-area__paragraph">
 						      File should be an image
 						      <strong class="upload-area__tooltip">
@@ -682,7 +1099,7 @@ textarea {
 						    <p class="drop-zoon__paragraph">Drop your file here or Click to browse</p>
 						    <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
 						    <img src="" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
-						    <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+						    <input type="file" name="myfile" data-max-file-size="10MB" id="fileInput" class="drop-zoon__file-input" accept="image/*">
 						  </div>
 						  <!-- End Drop Zoon -->
 						
@@ -698,13 +1115,19 @@ textarea {
 						
 						      <div id="uploadedFileInfo" class="uploaded-file__info">
 						        <span class="uploaded-file__name">Project 1</span>
-						        <span class="uploaded-file__counter">0%</span>
+						        <button type="submit">자격증 업로드하기</button>
 						      </div>
 						    </div>
 						  </div>
 						  <!-- End File Details -->
+							<c:if test="${condto != 0}">
+								<br>
+								<div style="text-align:left">이전 업로드된 파일:</div>
+								<img src="${con_file_Name }" style="width:380px; height:380px">
+							</c:if>
 						</div>
 						<!-- End Upload Area -->
+				</form>
 			</div>
 		</div>
 	</div>
@@ -728,11 +1151,25 @@ textarea {
 
 	//자기소개 보여줌
 	function showDescMe() {
-		$(".desc-content-aboutme").show();
+		$(".desc-content-aboutme").fadeIn(600);
 		$(".upload-area").hide();
+		$(".desc-usage").hide();
 		$(".desc-content-finishlist").hide();
 		$(".desc-list1").css("color", "#000000");
 		$(".desc-list2").css("color", "#898989");
+		$(".desc-list3").css("color", "#898989");
+
+	}
+	
+	//이용횟수 보여줌
+	function showUsage() {
+		$(".desc-content-aboutme").hide();
+		$(".upload-area").hide();
+		$(".desc-usage").fadeIn();
+		$(".desc-content-finishlist").hide();
+		$(".desc-list1").css("color", "#898989");
+		$(".desc-list2").css("color", "#898989");
+		$(".desc-list3").css("color", "#000000");
 
 	}
 
@@ -740,9 +1177,11 @@ textarea {
 	function showFinishlist() {
 		$(".desc-content-aboutme").hide();
 		$(".upload-area").hide();
-		$(".desc-content-finishlist").show();
+		$(".desc-usage").hide();
+		$(".desc-content-finishlist").fadeIn();
 		$(".desc-list1").css("color", "#898989");
 		$(".desc-list2").css("color", "#000000");
+		$(".desc-list3").css("color", "#898989");
 		
 		let stat = "완료"
 		let ucode = ${user_Code};
@@ -750,32 +1189,35 @@ textarea {
 		
 		$.ajax({
 			type: "post",
-			url: "mypage/reqroom",
+			url: "/mypage/reqroom",
 			data : data,
 			success : function(result){
 				$(".desc-content-finishlist").empty();
-				for(let i=0; i<result.length; i++){
-					$(".desc-content-finishlist").append('<div class="finish-top" style="float: right; width: 900px; height:20px">'
-														+'<div style="float: right"></div></div>'
-														+'<div class="finish-mid" style="width: 900px">'
-														+'<div class="finish-mid-left" style="display: inline-block; width: 200px; height: 200px; float: left; border:3px solid #80808075; border-radius: 10px">'
-														+'<div class="room-img"><img style="width:203px; height:203px; border-radius:10px" src='+result[i].fi_Nm+'></div></div>'
-														+'<div class="finish-mid-right" style="display: inline-block; width: 670px; height: 200px; float: right; border:3px solid #80808075; border-radius: 10px">'
-														+'<div class="req-desc" style="display: inline-block; float: left; height: 200px">'
-														+'<p style="margin: 5px 10px; font-size: 16pt; text-align:left">기한 :'+result[i].req_EDate+'</p>'
-														+'<p style="margin: 135px 10px 0 10px; font-size: 12pt">'+result[i].home_Addr+'</p>'
-														+'</div>'
-														+'<div class="req-title" style="display: inline-block">'
-														+'<p style="line-height: 150px; font-size: 20pt">'+result[i].req_Title+'</p>'
-														+'</div>'
-														+'<div class="req-point" style="display: inline-block; float: right; height: 200px">'
-														+'<p style="font-size: 20pt; line-height: 200px; margin: 0 18px">'+result[i].req_Point+'P</p>'
-														+'</div></div></div>'
-														+'<div class="finish-bot" style="width: 900px;">'
-														+'<div class="button" style="float: left; width: 80px; margin-top: 10px; margin-left: 55px; border-radius: 30px">'
-														+'<p style="margin: 5px">완료</p>'
-														+'</div></div>');
-					$(".req_No").attr("href","/board/detail?req_No="+result[i].req_No);
+				if(result.length == 0){
+					$(".desc-content-finishlist").append('<div style="width:900px;height:300px;padding-top:130px">완료한 수행내역이 없습니다.</div>');
+				}else{
+					for(let i=0; i<result.length; i++){
+						$(".desc-content-finishlist").append('<div class="my-res-list-content-all" id="my-res-list-content-all">'
+																+'<div class="my-res-list-content-inner" id="my-res-list-img" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'
+																+(result[i].fi_Nm != null? '<img src="'+result[i].fi_Nm+'">':'<img src="/images/importToJsp/homeimg.png">')
+																+'</div>'
+																+'<div id="my-res-list-text">'
+																+'<div class="my-res-list-content-inner" id="my-res-list-stat" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'
+																+'<label id="res-stat">'+result[i].req_Stat+'</label></div>'
+																+'<div class="my-res-list-content-inner" id="my-res-list-title"	onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'+result[i].req_Title+'</div>'
+																+'<div class="my-res-list-content-inner" id="my-res-list-point"	onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'+result[i].req_Point+'&nbsp; <i class="fa-solid fa-p"> </i></div>'
+																+'<h4 class="my-res-list-content-inner" id="my-res-list-ltd-title" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">요청 정보</h4>'
+																+'<div class="my-res-list-content-inner" id="my-res-list-dl-dt-dd" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'
+																+'<dl id="my-res-list-dl">'
+																+'<div id="my-res-list-ltd-box">'
+																	+'<dt id="my-res-list-dt">매물주소</dt>'
+																	+'<dd id="my-res-list-dd">'+result[i].home_Addr+'</dd>'
+																	+'</div>'
+																	+'<div id="my-res-list-ltd-box" class="my-res-list-ltd-detail-box">'
+																	+'<dt id="my-res-list-dt">방문기한</dt>'
+																	+'<dd id="my-res-list-dd">'+result[i].req_EDate+'</dd>'
+																	+'</div></dl></div></div></div>');
+					}
 				}
 			},
 			error: function(){
@@ -784,30 +1226,39 @@ textarea {
 		})
 
 	}
-	
 	//공인중개사 파일 업로드 태그 보여줌
 	function showProof(){
 		$(".desc-content-aboutme").hide();
 		$(".desc-content-finishlist").hide();
-		$(".upload-area").show();
+		$(".desc-usage").hide();
+		$(".upload-area").fadeIn();
 		$(".desc-list1").css("color", "#898989");
 		$(".desc-list2").css("color", "#898989");
+		$(".desc-list3").css("color", "#898989");
 		
 	}
 	//내가 딴 꿀 수확량 구현
 	window.addEventListener("load", () => {
-		  $("#progress_bar").css({
-		    width: ${user_Grade}+"%"
-		  });
+		  if(${dto.user_Grade} <= 100){
+			  $("#progress_bar").css({
+			    width: ${dto.user_Grade}+"%"
+			  });
+		  }else if(${dto.user_Grade} > 100){
+			  $("#progress_bar").css({
+				    width: 100+"%"
+				  });
+		  }
 		  
-		  if(${user_Grade}>=0 && ${user_Grade}<=29){
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #7a3950 0%, #370617 100%)');
-		  }else if(${user_Grade}>=30 && ${user_Grade}<=45){
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #e16b6f 0%, #9d0208 100%)');
-		  }else if(${user_Grade}>=46 && ${user_Grade}<=60){
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #ffc57b 0%, #f48c06 100%)');
+		  if(${dto.user_Grade}>=0 && ${dto.user_Grade}<=29){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(199 112 0) 0%, rgb(145 81 0) 100%)');
+		  }else if(${dto.user_Grade}>=30 && ${dto.user_Grade}<=45){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(241 241 241) 0%, rgb(161 161 161) 100%)');
+		  }else if(${dto.user_Grade}>=46 && ${dto.user_Grade}<=60){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(253 255 178) 0%, rgb(225 197 0) 100%)');
+		  }else if(${dto.user_Grade}>=61 && ${dto.user_Grade}<=100){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(202 255 241) 0%, rgb(0 209 132) 100%)');
 		  }else{
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #ffdd86 0%, #ffba08 100%)');
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(196 244 255) 0%, rgb(0 180 209) 100%)');
 		  }
 		  
 		  function animateValue(obj, start, end, duration) {
@@ -869,12 +1320,14 @@ textarea {
 	  "jpeg",
 	  "png",
 	  "svg",
-	  "gif"
+	  "gif",
+	  "jfif"
 	];
 
 	// Append Images Types Array Inisde Tooltip Data
 	toolTipData.innerHTML = [...imagesTypes].join(', .');
 
+	/*
 	// When (drop-zoon) has (dragover) Event 
 	dropZoon.addEventListener('dragover', function (event) {
 	  // Prevent Default Behavior 
@@ -904,7 +1357,7 @@ textarea {
 	  // Call Function uploadFile(), And Send To Her The Dropped File :)
 	  uploadFile(file);
 	});
-
+	*/
 	// When (drop-zoon) has (click) Event 
 	dropZoon.addEventListener('click', function (event) {
 	  // Click The (fileInput)
@@ -1024,10 +1477,10 @@ textarea {
 	  // If The Uploaded File Is An Image
 	  if (isImage.length !== 0) {
 	    // Check, If File Size Is 2MB or Less
-	    if (fileSize <= 2000000) { // 2MB :)
+	    if (fileSize <= 10000000) { // 2MB :)
 	      return true;
 	    } else { // Else File Size
-	      return alert('Please Your File Should be 2 Megabytes or Less');
+	      return alert('Please Your File Should be 10 Megabytes or Less');
 	    };
 	  } else { // Else File Type 
 	    return alert('Please make sure to upload An Image File Type');
@@ -1049,6 +1502,22 @@ textarea {
 		location.reload();
 	})
 	
+	$(document).ready(function(){
+		//등급제도 설명 나타나게하기
+		$(".grade_tooltip-data").html("꿀 수확량 0-29 : Bronze <br>"
+									  +"꿀 수확량 30-45 : Silver <br>"
+									  +"꿀 수확량 46-60 : Gold <br>"
+									  +"꿀 수확량 61-100 : Platinum <br>"
+									  +"꿀 수확량 100 초과 : Diamond")
+		$(".grade_tooltip").mouseover(function(){
+			$(".grade_tooltip-data").fadeIn();
+		}).mouseout(function(){
+			$(".grade_tooltip-data").fadeOut();
+		});
+	});
 </script>
+<script>
 
+
+</script>
 </html>

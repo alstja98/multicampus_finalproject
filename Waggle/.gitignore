@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### application.propertie ###
+application-my.properties
+
+### payment.js ###
+payment.js

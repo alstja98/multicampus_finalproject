@@ -6,7 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Waggle</title>
+<title>Waggle 프로필 수정</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 .middle {
    margin: 0;
@@ -29,32 +32,8 @@
 
 .guideline-all p {
    display: inline-block;
+   font-size: 14px;
 }
-
-.inputbutton {
-	background-color: #f2f2f2;
-	border: none;
-	border-radius: 8px;
-	box-sizing: border-box;
-	color: #000000;
-	font-size: 13px;
-	font-weight: 500;
-	font-family: inherit;
-	letter-spacing: .25px;
-	line-height: normal;
-	padding: 5px 5px;
-}
-
-.inputbutton:hover {
-	background: #E6E6E6;
-	color: #000000;
-}
-
-.inputbutton:active {
-	outline: none;
-	border: 1px solid #ffffff;
-}
-
 
 /* 프로필 사진 수정 시작 */
 .profile {
@@ -68,6 +47,7 @@
     padding: 0;
     position: relative;
     margin-top:40px;
+    border: 1px solid #ebebeb;
 }
  .profile:hover .edit, .profile:hover .delete {
     opacity: 0.5;
@@ -97,6 +77,9 @@
  .profile .edit span {
     transform: rotate(45deg);
     display: block;
+    font-size:30px;
+    position:fixed;
+    left:49%;
 }
  .profile .edit input {
     opacity: 0;
@@ -109,6 +92,214 @@
 }
 /* 프로필 사진 수정 끝 */
 
+/* 수정중 */
+
+/* .edit-profile-info {
+	text-align: center;
+} */
+
+/* input {
+	box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px, rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+    border: none;
+    border-radius: 4px;
+} */
+
+#pw_input {
+    border: none;
+    width: 415px;
+    height: 30px;
+}
+
+#pw_chk {
+    border: none;
+    width: 356px;
+}
+
+#email_input {
+    border: none;
+    width: 368px;
+    height: 30px;
+}
+
+#chk_nm {
+    border: none;
+    width: 368px;
+    height: 30px;
+}
+
+#nm_input {
+    border: none;
+    width: 300px;
+    height: 30px;
+}
+
+#age_input {
+    border: none;
+    width: 380px;
+    height: 30px;
+}
+
+#post {
+    border: none;
+    width: 351px;
+    height: 30px;
+}
+
+#addr {
+    border: none;
+    width: 204px;
+    height: 30px;
+}
+
+#daddr {
+    border: none;
+    height: 30px;
+}
+
+
+#border-line {
+	border-bottom: 1px solid #ebebeb;
+	padding: 25px 0px 15px 0;
+    width: 455px;
+    margin: 0 auto;
+    letter-spacing: .6px;
+}
+
+.img-submit-btn {
+	text-align: center;
+    display: block;
+    padding: 20px;
+}
+
+#profile-title {
+	text-align: center;
+}
+
+/* 버튼 */
+.inputbutton {
+  color: var(--color);
+  transition: 0.25s;
+}
+.inputbutton:hover, .inputbutton:focus {
+  box-shadow: inset 0 0 0 2em var(--hover) !important;
+  border-color: var(--hover) !important;
+  color: #fff !important;
+}
+
+.inputbutton {
+border-radius: 8px;
+	box-sizing: border-box;
+	font-size: 13px;
+	font-weight: 500;
+	font-family: inherit;
+	letter-spacing: .25px;
+	line-height: normal;
+	padding: 5px 5px;
+	background-color: #fff;
+	border: 1px solid #d3d3d3;
+  --color: #222222CC;
+  --hover: #f9a73d;
+  text-align:center;
+}
+
+.back{
+	border-radius:20px;
+}
+.back:hover{
+	border-radius: 20px;
+	width: 100px;
+	transition: 0.25s;
+	box-shadow: inset 0 0 0 2em #e9e9e9;
+}
+/* 버튼 */
+/*
+.inputbutton {
+	border-radius: 8px;
+	box-sizing: border-box;
+	font-size: 13px;
+	font-weight: 500;
+	font-family: inherit;
+	letter-spacing: .25px;
+	line-height: normal;
+	padding: 5px 5px;
+	background-color: #fff;
+	border: 1px solid #d3d3d3;
+    color: #222222CC;
+}
+*/
+input:focus {
+	outline: none;
+}
+
+.inputbutton:active {
+	outline: none;
+	background-color: #f6f6f6;
+}
+
+#img-input {
+	border-radius: 8px;
+	box-sizing: border-box;
+	font-size: 13px;
+	font-weight: 500;
+	font-family: inherit;
+	letter-spacing: .25px;
+	line-height: normal;
+	padding: 5px 5px;
+	background-color: #fff;
+	border: 1px solid #d3d3d3;
+    color: #222222CC;
+}
+
+/* .inputbutton:hover {
+	background: #E6E6E6;
+	color: #222222CC;
+} */
+
+#img-input:active {
+	outline: none;
+	background-color: #f6f6f6;
+	border: 1px solid #ffffff;
+}
+
+span {
+	font-size: 13px;
+}
+
+.select {
+    display: inline-block;
+    width: 386px;
+}
+
+#back-btn {
+	text-align: center;
+    display: block;
+}
+
+#back-btn-inner {
+	display: inline-block;
+}
+
+#back-btn-inner-text {
+	display: inline-block;
+}
+
+#img-edit-btn {
+	margin-top:20px;
+	border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    letter-spacing: .25px;
+    line-height: normal;
+    padding: 5px 5px;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    color: #222222CC;
+}
+
+
+
 /*성별 라디오*/
 .select input[type=radio]{
     display: none;
@@ -117,21 +308,21 @@
     display: inline-block;
     cursor: pointer;
     height: 35px;
-    width: 120px;
-    border: 1px solid #333;
+    width: 60px;
+    border: 1px solid #d3d3d3;
     border-radius:10px;
     line-height: 35px;
     text-align: center;
     font-weight:bold;
-    font-size:16px;
+    font-size:13px;
 }
 
 .select input[type=radio]+label{
     background-color: #fff;
-    color: #333;
+    color: #222;
 }
 .select input[type=radio]:checked+label{
-    background-color: #333;
+    background-color: #222;
     color: #fff;
 }
 .pw_input_re_1{
@@ -193,109 +384,124 @@
 </head>
 <body>
    <%@ include file="header.jsp"%>
-   <div id="wrap">
-      <div class="middle">
-         <div class="guideline">
-            <ul class="guideline-all">
-               <li><a href="javascript:void(0)"> <i
-                     class="fa-solid fa-house"></i>
-               </a></li>
-               <p>HOME > 마이페이지 > 회원정보 수정하기</p>
-            </ul>
-         </div>
-        </div>
-         <div class="edit-Title" style="margin:0 auto; width:1000px; text-align:center; font-size:16pt">
-         회원정보 수정하기
-         </div>
-         <div class="edit-profile-img" style="margin:0 auto; width:1000px; text-align:center">
-         	<form action="/mypage/imageEdit" method="post"> 
-            <div class="profile" style="background-image:url(/images/importToJsp/profile_default.jpg)">
-              <label class="edit">
-                <span>&#10002;</span>
-                <input type="file" id="imginput"/>
-              </label>
-              <div class="delete" onclick="removeimg()">&times;</div>
+	<div id="wrap">
+		<div class="middle">
+			<div class="guideline">
+				<ul class="guideline-all">
+					<li><a href="javascript:void(0)"> <i
+							class="fa-solid fa-house"></i>
+					</a></li>
+					<p>HOME > 마이페이지 > 프로필 수정</p>
+				</ul>
+			</div>
+		</div>
+		<div class="edit-Title">
+			<h4 id="profile-title">회원정보 수정하기</h4>
+		</div>
+		<form action="/mypage/imageEdit" method="post"
+			enctype="multipart/form-data">
+			<div class="edit-profile-img"
+				style="margin: 0 auto; width: 1000px; text-align: center">
+				<c:if test="${user_Pro == 0 }">
+					<div class="profile"
+						style="background-image: url(/images/importToJsp/profile_default.jpg)">
+				</c:if>
+				<c:if test="${user_Pro != 0 }">
+					<div class="profile" style="background-image:url(${Pro_Fi_Nm})">
+				</c:if>
+				<label class="edit"> <span id="pen">&#10002;</span> <input
+					type="file" name="myfile" data-max-file-size="10MB">
+				</label>
+				<div class="delete" onclick="removeimg()">&times;</div>
+			</div>
+			<input type="submit" class="inputbutton" value="프로필사진 수정하기"
+				id="img-edit-btn">
+		</form>
+	</div>
+	<div class="edit-profile-info">
+         	<form action="/mypage/nmchange" method="post">
+            <div id="border-line">
+            <h5>닉네임</h5>
+            <input type="text" id="nm_input" name="user_Nm" value="${user_Nm }">
+            <input type="button" id="nm_chk" value="중복 확인" class="inputbutton">
+            <input type="hidden" name="user_Code" value="${user_Code }">
+            <input type="submit" id="change_nm" value="닉네임 수정" disabled="disabled" class="inputbutton">
+						<br>
+						<span class="nm_input_re_1">사용 가능한 닉네임입니다.</span>
+						<span class="nm_input_re_2">닉네임이 이미 존재합니다.</span>
+						<span class="nm_form_check"></span>
             </div>
-            <input type="hidden" id="imgUrl" name="imgUrl" value="">
-            <input type="submit" id="img-input" value="프로필사진 수정하기" style="margin-top:20px">
             </form>
-         </div>
-         <div class="edit-profile-info" style="margin:0 auto; width:500px">
+         
 			<form action="/mypage/pwchange" method="post">
-            <div>
-            <p style="margin:0; margin-bottom:5px; margin-top: 10px; margin-left:5px">비밀번호</p>
-            <input type="password" id="pw_input" style="width:500px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px">
+            <div id="border-line">
+            <h5>비밀번호</h5>
+            <input type="password" id="pw_input" placeholder="8~16자 영문,숫자,특수문자를 최소 한가지씩 사용하세요.">
             <br>
             <span class="pw_form_check"></span> 
             </div>
-            <div>
-            <p style="margin:0; margin-bottom:5px; margin-top: 10px; margin-left:5px">비밀번호 확인</p>
-            <input type="password" id="pw_chk" name="user_Pw" style="width:300px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px">
+            
+            <div id="border-line">
+            <h5>비밀번호 확인</h5>
+            <input type="password" id="pw_chk" name="user_Pw">
            
             <input type="hidden" name="user_Code" value="${user_Code }">
-            <input type="submit" id="change_pw" value="비밀번호 수정" disabled="disabled" class="inputbutton">
+            <input type="submit" id="change_pw" value="비밀번호 수정" disabled="disabled" class="inputbutton button">
             
             <br>
             <span class="pw_input_re_1">비밀번호가 같습니다.</span>
 			<span class="pw_input_re_2">비밀번호가 다릅니다.</span>
             </div>
             </form>
+            
+            <div id="border-line">
             <form action="/mypage/emailchange" method="post">
-            <div>
-            <p style="margin:0; margin-bottom:5px; margin-top: 10px; margin-left:5px">이메일</p>
-            <input type="text" id="email_input" name="user_Email" value="${user_Email }" style="width:500px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px">
-            <input type="button" id="mail_chk" value="이메일 인증" style="width: 100px;" class="inputbutton">
+            <h5>이메일</h5>
+            <input type="text" id="email_input" name="user_Email" value="${user_Email }">
+            <input type="button" id="mail_chk" value="이메일 인증" class="inputbutton button">
 						<input type="text" id="chk_nm" placeholder="인증번호를 입력해 주세요" disabled="disabled">
 						<input type="hidden" name="user_Code" value="${user_Code }">
-						<input type="submit" id="change_email" value="이메일 수정" disabled="disabled" class="inputbutton">
+						<input type="submit" id="change_email" value="이메일 수정" disabled="disabled" class="inputbutton button">
 						<br>
 						<span class="email_input_re_1">인증번호가 일치합니다.</span>
 						<span class="email_input_re_2">인증번호를 다시 확인해주세요.</span>
 						<span class="email_input_re_3">이미 등록된 이메일 입니다.</span>
 						<span class="email_form_check"></span>
-            </div>
             </form>
-            <form action="/mypage/nmchange" method="post">
-            <div>
-            <p style="margin:0; margin-bottom:5px; margin-top: 10px; margin-left:5px">닉네임</p>
-            <input type="text" id="nm_input" name="user_Nm" value="${user_Nm }" style="width:500px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px">
-            <input type="button" id="nm_chk" value="중복 확인" style="width: 80px;" class="inputbutton">
-            <input type="hidden" name="user_Code" value="${user_Code }">
-            <input type="submit" id="change_nm" value="닉네임 수정" disabled="disabled" class="inputbutton">
-						<br>
-						<span class="nm_input_re_1">사용 가능한 닉네임입니니다.</span>
-						<span class="nm_input_re_2">닉네임이 이미 존재합니다.</span>
-						<span class="nm_form_check"></span>
             </div>
-            </form>
+            
+            <div id="border-line">
             <form action="/mypage/agechange" method="post">
-            <div>
-            <p style="margin:0; margin-bottom:5px; margin-top: 10px; margin-left:5px">나이</p>
-            <input type="text" id="age_input" name="user_Age" value="${user_Age }" style="width:500px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px">
+            <h5>나이</h5>
+            <input type="text" id="age_input" name="user_Age" value="${user_Age }">
             <input type="hidden" name="user_Code" value="${user_Code }">
             <input type="submit" id="change_age" value="나이 수정" disabled="disabled" class="inputbutton">
             <br>
             <span class="age_form_check"></span>
-            </div>
             </form>
+            </div>
+            
+            <div id="border-line">
             <form action="/mypage/addrchange" method="get">
-            <div>
-            <p style="margin:0; margin-bottom:5px; margin-top: 10px; margin-left:5px">주소</p>
+            <h5>주소</h5>
             <c:if test="${user_Code == param.ua_UCode}">
-            <input type="text" id="post" name="ua_Post" value="${dto.ua_Post }" readonly="readonly" style="width:150px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px; display:inline-block">
+            <input type="text" id="post" name="ua_Post" value="${dto.ua_Post }" readonly="readonly">
             <input type="button" id="address" value="우편번호 찾기" style="width: 95px;" class="inputbutton">
-            <input type="text" id="addr" name="ua_Addr" value="${dto.ua_Addr }" readonly="readonly" style="width:500px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px; margin-top:5px;">
-            <input type="text" id="daddr" name="ua_DAddr" value="${dto.ua_DAddr }" style="width:500px; height:30px; border:1px solid; border-radius:6px; line-height:3; padding-left:15px; margin-top:5px" placeholder="상세주소">
+            <input type="text" id="addr" name="ua_Addr" value="${dto.ua_Addr }" readonly="readonly">
+            <input type="text" id="daddr" name="ua_DAddr" value="${dto.ua_DAddr }" placeholder="상세주소">
+            <input type="hidden" name="ua_Lat" id="ua_Lat">
+            <input type="hidden" name="ua_Lng" id="ua_Lng">
             <input type="hidden" name="ua_UCode" value="${user_Code }">
             <input type="submit" id="change_addr" value="주소 수정" disabled="disabled" class="inputbutton">
             </c:if>
+             </form>
             </div>
-            </form>
+          
+            <div id="border-line">
             <form action="/mypage/genderchange" method="post">
-            <div>
             <input type="hidden" name="user_Code" value="${user_Code }">
-            <p style="margin:0; margin-bottom:5px; margin-top: 20px; margin-left:5px">성별</p>
-            </div>
+            <h5>성별</h5>
+            
             <c:if test="${user_Gender == 'M'}">
             <div class="select">
 				
@@ -305,6 +511,7 @@
                
             </div>
             </c:if>
+            
             <c:if test="${user_Gender == 'F' }">
             <div class="select">
 				
@@ -315,6 +522,7 @@
             </div>
             </c:if>
             <c:if test="${user_Gender == null }">
+            
             <div class="select">
 				
                <input type="radio" id="select" name="user_Gender" value="M"><label for="select" >남자</label>
@@ -326,10 +534,15 @@
             </c:if>
             <input type="submit" id="change_gender" value="성별 수정" class="inputbutton">
             </form>
-            <div style="width:500px; margin-top:100px; border-bottom:2px solid #898989; height:10px"></div>
+            </div>
             
-            <div style="margin-top:30px; text-align:center">
-               <div onclick="location.href='/mypage_me'" style="width:150px; height:35px; border:3px solid; border-radius:15px; line-height:35px; display:inline-block; text-align:center; font-weight:bold; margin-left:50px">돌아가기</div>
+            
+            <br/><br/>
+            <div id="back-btn">
+               <div id="back-btn-inner" class="back" onclick="location.href='/mypage/me'">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                 <h5 id="back-btn-inner-text">돌아가기</h5>
+               </div>
             </div>
          <div class="edit-button">
          
@@ -339,32 +552,75 @@
    
    <%@ include file="footer.jsp"%>
 </body>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=df487b49cd90a64d7305e577e300f2e4&libraries=services,clusterer,drawing"></script>
 <script>
 function removeimg() {
 	  $(".profile").attr("style","background-image:url(/images/importToJsp/profile_default.jpg)");
+	  $("input[name=myfile]").off();
+	  $("#img-edit-btn").attr("disabled",true);
 	};
 	
-	
+
 $(function(){
 
 //프로필 사진 수정 시작
-var input = document.getElementById("imginput");
 var image = document.querySelector('.profile');
-
-input.addEventListener('change', function(event){
-  var reader = new FileReader();
-  reader.onload = function(e){
-    setImageUrl(e.target.result);
-    $("#imgUrl").attr("value",e.target.result);
-    console.log($("#imgUrl").val());
-  };
-  reader.readAsDataURL(event.target.files[0]);
-});
 
 function setImageUrl(url){
   image.style.backgroundImage = 'url('+url+')';
 };
 
+$(".edit").on("click", function(){
+    $("input[name=myfile]").val('');
+	$("input[name=myfile]").on("change", function(){
+		  var reader = new FileReader();
+		  reader.onload = function(e){
+		    setImageUrl(e.target.result);
+		  };
+		  reader.readAsDataURL(event.target.files[0]);
+		
+			if (this.files && this.files[0]) {
+		
+				var maxSize = 20 * 1024 * 1024;
+				var fileSize = this.files[0].size;
+		
+				if(fileSize > maxSize){
+					alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+					$(this).val('');
+					return false;
+				}
+			}
+			
+			
+		});
+	$("#img-edit-btn").attr("disabled",false);
+});
+
+
+/*
+$("input[name=myfile]").on("change", function(){
+	  var reader = new FileReader();
+	  reader.onload = function(e){
+	    setImageUrl(e.target.result);
+	    console.log(e.target.result);
+	  };
+	  reader.readAsDataURL(event.target.files[0]);
+	
+		if (this.files && this.files[0]) {
+	
+			var maxSize = 20 * 1024 * 1024;
+			var fileSize = this.files[0].size;
+	
+			if(fileSize > maxSize){
+				alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+				$(this).val('');
+				return false;
+			}
+		}
+		
+		
+	});
+*/
 //프로필 사진 수정 끝
 
 $('#pw_input').blur(function(){ // 비밀번호 유형 검사
@@ -478,7 +734,7 @@ $('#nm_chk').on("click", function(){ // 버튼클릭 시
 	if(nmFormCheck(user_Nm)){
         
     	} else {
-        	warnMsg.html("2 ~ 16자의 영어, 숫자, 한글만 사용 가능합니다.");
+        	warnMsg.html("2 ~ 10자의 영어, 숫자, 한글만 사용 가능합니다.");
         	warnMsg.css("color","red");
         	warnMsg.css("display", "inline-block");
         	$('.nm_input_re_1').css("display", "none");
@@ -570,12 +826,30 @@ $("#address").on("click",function(){
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	                $("#post").val(data.zonecode);
 	                $("#addr").val(addr);
+	                
+	              //받은 주소값을 위도 경도로 바꿔서 input hidden 값에 value값으로 넣어주기
+	                var geocoder = new kakao.maps.services.Geocoder();
+	                var addr2 = data.jibunAddress;
+	                geocoder.addressSearch(addr2, function(result, status) {
+	                	
+	        		    // 정상적으로 검색이 완료됐으면 
+	        		     if (status === kakao.maps.services.Status.OK) {
+	        				$("#ua_Lat").attr('value',result[0].y);
+	        				$("#ua_Lng").attr('value',result[0].x);
+	        				
+	        		    } else {
+	        		    	console.log("에러");
+	        		    }
+	        		});  
+	                
 	                // 커서를 상세주소 필드로 이동한다.
 	                $("#daddr").attr("readonly",false);
 	                $("#daddr").focus();
 	                $("#change_addr").attr("disabled",false);
 		        }
-		    }).open();
+		    }).open({
+		    	popupName: 'AddrSearch'
+		    });
 		})
 
 
@@ -590,7 +864,7 @@ function pwFormCheck(pw){
 }
 
 function nmFormCheck(nm){
-   var form = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
+   var form = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/;
    return form.test(nm);
 }
 

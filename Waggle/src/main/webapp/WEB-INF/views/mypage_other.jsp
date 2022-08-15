@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Waggle 유저 정보</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
 <style>
 .middle {
 	margin: 0;
@@ -36,6 +37,33 @@
 	display: inline-block;
 }
 
+/* 버튼 */
+.button {
+  color: var(--color);
+  transition: 0.25s;
+}
+.button:hover, .button:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+  border-color: var(--hover);
+  color: #fff;
+}
+
+.button {
+  background: none;
+  border-radius: 10px;
+  border: 3px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  width: 110px;
+  float: right;
+  --color: #262626;
+  --hover: #f9a73d;
+  font-weight:bold;
+  text-align:center;
+}
+/* 버튼 */
+/*
 .button {
 	background: transparent;
 	width: 110px;
@@ -58,7 +86,7 @@
 .button:hover {
 	cursor: pointer;
 }
-
+*/
 .description {
 	height: 70px;
 	background: #ffffff;
@@ -163,6 +191,21 @@ textarea {
 	float: right;
 }
 
+.desc-content-finishlist{
+	margin: 0 auto;
+	width: 1000px;
+	height:900px;
+	overflow-y:auto;
+	display: none;
+	text-align:left;
+}
+
+.desc-content-finishlist img{
+	width:300px;
+	height:300px;
+	border-radius:10px;
+}
+
 #bar_container {
   height: 16px;
   background: #dcdbd7;
@@ -223,330 +266,335 @@ textarea {
   --clr-light-blue: rgb(171, 202, 255);
 }
 
-/* 공인중개사 인증 태그 css 시작 */
-.upload-area {
-  width: 100%;
-  max-width: 25rem;
-  background-color: var(--clr-white);
-  box-shadow: 0 0 15px #898989;
-  border: 2px solid #898989;
-  border-radius: 24px;
-  padding: 2rem 1.875rem 5rem 1.875rem;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.upload-area--open { /* Slid Down Animation */
-  animation: slidDown 500ms ease-in-out;
-}
-
-@keyframes slidDown {
-  from {
-    height: 28.125rem; /* 450px */
-  }
-
-  to {
-    height: 35rem; /* 560px */
+/* 이용횟수 통계 그림 */
+@keyframes bar-fill {
+  0% {
+    width: 0;
   }
 }
-
-/* Header */
-
-.upload-area__title {
-  font-size: 1.8rem;
-  font-weight: 500;
-  margin-bottom: 0.3125rem;
+@-webkit-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+@-moz-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+@-o-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+.bar-graph {
+  list-style: none;
+  margin: 50px 0px auto;
 }
 
-.upload-area__paragraph {
-  font-size: 0.9375rem;
-  color: var(--clr-light-gray);
-  margin-top: 0;
+.bar-wrap {
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -ms-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(149, 149, 149, 0.2);
+  margin-bottom: 10px;
+  height: 27px;
 }
 
-.upload-area__tooltip {
-  position: relative;
-  color: var(--clr-light-blue);
-  cursor: pointer;
-  transition: color 300ms ease-in-out;
+.bar-fill {
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -ms-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-animation: bar-fill 1s;
+  -webkit-animation: bar-fill 1s;
+  -ms-animation: bar-fill 1s;
+  animation: bar-fill 1s;
+  background-color: #979797;
+  display: block;
+  height: 27px;
+  width: 0px;
 }
 
-.upload-area__tooltip:hover {
-  color: var(--clr-blue);
-}
-
-.upload-area__tooltip-data {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -125%);
-  min-width: max-content;
-  background-color: var(--clr-white);
-  color: var(--clr-blue);
-  border: 1px solid var(--clr-light-blue);
-  padding: 0.625rem 1.25rem;
-  font-weight: 500;
-  opacity: 0;
-  visibility: hidden;
-  transition: none 300ms ease-in-out;
-  transition-property: opacity, visibility;
-}
-
-.upload-area__tooltip:hover .upload-area__tooltip-data {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Drop Zoon */
-.upload-area__drop-zoon {
-  position: relative;
-  height: 11.25rem; /* 180px */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border: 2px dashed #898989;
-  border-radius: 15px;
-  margin-top: 2.1875rem;
-  cursor: pointer;
-  transition: border-color 300ms ease-in-out;
-}
-
-.upload-area__drop-zoon:hover {
-  border-color: #000000;
-}
-
-.drop-zoon__icon {
-  display: flex;
-  font-size: 3.75rem;
-  color: var(--clr-blue);
-  transition: opacity 300ms ease-in-out;
-}
-
-.drop-zoon__paragraph {
-  font-size: 0.9375rem;
-  color: var(--clr-light-gray);
-  margin: 0;
-  margin-top: 0.625rem;
-  transition: opacity 300ms ease-in-out;
-}
-
-.drop-zoon:hover .drop-zoon__icon,
-.drop-zoon:hover .drop-zoon__paragraph {
-  opacity: 0.7;
-}
-
-.drop-zoon__loading-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
+.bar-graph p {
+  text-align:left;
   color: #000000;
-  z-index: 10;
+  font-family: "Helvetica";
+  font-size: 16px;
+  font-weight: 100;
+  text-transform: uppercase;
 }
 
-.drop-zoon__preview-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 10px;
-  display: none;
-  z-index: 1000;
-  transition: opacity 300ms ease-in-out;
+/* 이용횟수 통계 그림 끝 */
+/*이용횟수 간단 css */
+#bold{
+	font-weight:bold;
+	color:#fc4f4f;
 }
 
-.drop-zoon:hover .drop-zoon__preview-image {
-  opacity: 0.8;
+#ratio{
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
 }
 
-.drop-zoon__file-input {
-  display: none;
+#line{
+	width:100%;
+	height:50px;
+	border-bottom: 1px dashed #898989;
 }
 
-/* (drop-zoon--over) Modifier Class */
-.drop-zoon--over {
-  border-color: #000000;
+#ul-left{
+	width:445px;
+	padding:0;
+	padding-left:20px;	
 }
 
-.drop-zoon--over .drop-zoon__icon,
-.drop-zoon--over .drop-zoon__paragraph {
-  opacity: 0.7;
+#ul-right{
+	width:420px;
+	padding:0;
+}
+/*이용횟수 간단 css */
+
+
+/*완료한 리스트 css */
+
+#my-res-list-img {
+	display: inline-block;
+    vertical-align: top;
+    align-self: center;
+    padding: 0px 40px 0px 0px;
+}
+ 
+#my-res-list-text {
+	display:inline-block;
+	width: 550px;
+    height: 300px;
+    padding: 40px 0px 40px 40px;
+    border-left: 1px solid #ebebeb;
+}
+#my-res-list-content-all:hover{
+	box-shadow: inset 0 0 0 15em #f7f9fa;
+}
+#my-res-list-content-all {
+	display: flex;
+    justify-content: center;
+    transition: 1s;
 }
 
-/* (drop-zoon--over) Modifier Class */
-.drop-zoon--Uploaded {
-  
+#my-res-list-point {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 550px;
+    height: 60px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+}
+ 
+#my-res-list-dl {
+	display: flex;
+    min-height: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+} 
+
+#my-res-list-dt {
+	line-height: 14px;
+    font-size: 15px;
+    letter-spacing: -.06px;
+    letter-spacing: -.33px;
+    color: rgba(34,34,34,.5);
 }
 
-.drop-zoon--Uploaded .drop-zoon__icon,
-.drop-zoon--Uploaded .drop-zoon__paragraph {
-  display: none;
+#my-res-list-dd {
+	margin: 4px 0px 0px 0px;
+    word-break: break-word;
+    line-height: 17px;
+    font-size: 15px;
+    
+}
+ 
+#my-res-list-ltd-box {
+	padding: 0 12px;
+/* 	padding-left: 0;
+	padding-right: 0; */
+	flex: 1;
+} 
+
+.my-res-list-ltd-detail-box {
+	border-left: 1px solid #ebebeb;
 }
 
-/* File Details Area */
-.upload-area__file-details {
-  height: 0;
-  visibility: hidden;
-  opacity: 0;
-  text-align: left;
-  transition: none 500ms ease-in-out;
-  transition-property: opacity, visibility;
-  transition-delay: 500ms;
+#my-res-list-dl-dt-dd {
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
 }
 
-/* (duploaded-file--open) Modifier Class */
-.file-details--open {
-  height: auto;
-  visibility: visible;
-  opacity: 1;
+#my-res-list-ltd-title {
+	line-height: 22px;
+    padding: 21px 0 12px;
+    font-size: 18px;
+    letter-spacing: -.15px;
+    margin: 0;
+}
+ 
+#my-res-list-stat {
+	display: inline-block;
+	padding-top: 1px;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+ 
+#res-stat {
+	font-weight: 800;
+    border-bottom: 2px solid #222;
+}
+ 
+#my-res-list-title {
+	margin-bottom: 6px;
+    font-size: 18px;
+    letter-spacing: -.09px;
+    font-weight: 400;
+}
+/* 완료한 리스트 css 끝 */
+.grade{
+	display:inline-block;
+	height:30px;
+	border-radius:25px;
+	padding:10px;
+	padding-top:0px;
+	padding-bottom:0px;
+	line-height:28px;
+	margin-left:10px;
+	background-color:#110902;
+	font-weight:bold;
+	color:white;
+	
 }
 
-.file-details__title {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: var(--clr-light-gray);
+
+.grade_tooltip{
+	position:relative;
+	color:var(--clr-light-gray);
+	cursor:pointer;
+	transition:color 300ms ease-in-out;
 }
 
-/* Uploaded File */
-.uploaded-file {
-  display: flex;
-  align-items: center;
-  padding: 0.625rem 0;
-  visibility: hidden;
-  opacity: 0;
-  transition: none 500ms ease-in-out;
-  transition-property: visibility, opacity;
+.grade_tooltip:hover{
+	color:var(--clr-gray);
 }
 
-/* (duploaded-file--open) Modifier Class */
-.uploaded-file--open {
-  visibility: visible;
-  opacity: 1;
-}
-
-.uploaded-file__icon-container {
-  position: relative;
-  margin-right: 0.3125rem;
-}
-
-.uploaded-file__icon {
-  font-size: 3.4375rem;
-  color: var(--clr-blue);
-}
-
-.uploaded-file__icon-text {
-  position: absolute;
-  top: 1.5625rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--clr-white);
-}
-
-.uploaded-file__info {
-  position: relative;
-  top: -0.3125rem;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.uploaded-file__info::before,
-.uploaded-file__info::after {
-  content: '';
-  position: absolute;
-  bottom: -0.9375rem;
-  width: 0;
-  height: 0.5rem;
-  background-color: #ffffff;
-  border-radius: 0.625rem;
-}
-
-.uploaded-file__info::before {
-  width: 100%;
-}
-
-.uploaded-file__info::after {
-  width: 100%;
-  background-color: #ffb202;
-}
-
-/* Progress Animation */
-.uploaded-file__info--active::after {
-  animation: progressMove 800ms ease-in-out;
-  animation-delay: 300ms;
-}
-
-@keyframes progressMove {
-  from {
-    width: 0%;
-    background-color: transparent;
-  }
-
-  to {
-    width: 100%;
-    background-color: #ffb202;
-  }
-}
-
-.uploaded-file__name {
-  width: 100%;
-  max-width: 6.25rem; /* 100px */
-  display: inline-block;
-  font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.uploaded-file__counter {
-  font-size: 1rem;
-  color: var(--clr-light-gray);
+.grade_tooltip-data{
+	position:absolute;
+	top:750%;
+	left:270%;
+	transform: translate(-50%, -125%);
+	min-width: max-content;
+	background-color: var(--clr-white);
+	color: var(--clr-gray);
+	border:1px solid var(--clr-light-gray);
+	padding: 0.625rem 1.25rem;
+	font-weight:500;
+	display:none;
+	color:#898989;
 }
 </style>
 
 
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
-	<%@ include file="header.jsp"%>
-	<div id="wrap">
+	<div id="wrap" style="min-height:140vh">
 		<div class="middle">
 			<div class="guideline">
 				<ul class="guideline-all">
 					<li><a href="javascript:void(0)"> <i
 							class="fa-solid fa-house"></i>
 					</a></li>
-					<p>HOME > 나의 프로필</p>
+					<p>${dto.user_Nm} 님의 마이페이지</p>
 				</ul>
 			</div>
 			<div class="middle-profile">
 				<div class="profile" style="text-align: center; display: flex; justify-content: center;">
-					<!-- 
+					
 					<div class="profile-left" style="display: inline-block">
-						<c:if test = "${dto.user_Pro == null}">
+						<c:if test = "${dto.user_Pro == 0}">
 						<img src="/images/importToJsp/profile_default.jpg"
-							style="width: 100px; height: 100px">
+							style="width: 200px; height: 200px">
 						</c:if>
-						<c:if test = "${dto.user_Pro != null }">
-						<img src="${fi_Nm }" style="width:100px; height: 100px">
+						<c:if test = "${dto.user_Pro != 0 }">
+						<img src="${Pro_fi_Nm }" style="width:200px; height: 200px; border-radius:100px" onerror=this.src="/images/importToJsp/profile_default.jpg">
 						</c:if>
-						<div style="font-weight: bold; font-size: 20pt">${dto.user_Point } P</div>
 					</div>
-					-->
+					
 					<div class="profile-right"
-						style="display: inline-block; margin-left: 40px; text-align: left">
-						<c:if test="${user_Code != null }">
+						style="display: inline-block; margin-left: 80px; text-align: left">
 						<div>
 							<span
 								style="font-size: 20pt; margin-bottom: 20px; font-weight: bold">${dto.user_Nm}
 								님</span>
+								<c:choose>
+								<c:when test="${dto.user_Grade < 0}">
+									<div class="grade" >사기꾼</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 0 and dto.user_Grade < 30}">
+									<div class="grade" >Bronze</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 30 and dto.user_Grade < 46}">
+									<div class="grade" >Silver</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 46 and dto.user_Grade < 61}">
+									<div class="grade" >Gold</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 61 and dto.user_Grade < 101}">
+									<div class="grade">Platinum</div>
+								</c:when>
+								<c:when test="${dto.user_Grade >= 101}">
+									<div class="grade" >Diamond</div>
+								</c:when>
+							</c:choose>
+							<strong class="grade_tooltip">등급제도란?
+							<span class="grade_tooltip-data">꿀 수확량 0-29 : Bronze <br>
+															 꿀 수확량 30-45 : Silver <br>
+															 꿀 수확량 46-60 : Gold <br>
+															 꿀 수확량 61-100 : Platinum <br>
+														  	 꿀 수확량 100 초과 : Diamond"</span>
+							</strong>
 						</div>
-						<div style="font-size: 14pt">나이: ${dto.user_Age}</div>
+						<c:choose>
+							<c:when test="${dto.user_Age >= 10 and dto.user_Age < 20}">
+								<div style="font-size: 14pt">나이: 10대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 20 and dto.user_Age < 30}">
+								<div style="font-size: 14pt">나이: 20대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 30 and dto.user_Age < 40}">
+								<div style="font-size: 14pt">나이: 30대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 40 and dto.user_Age < 50}">
+								<div style="font-size: 14pt">나이: 40대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 50 and dto.user_Age < 60}">
+								<div style="font-size: 14pt">나이: 50대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 60 and dto.user_Age < 70}">
+								<div style="font-size: 14pt">나이: 60대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 70 and dto.user_Age < 80}">
+								<div style="font-size: 14pt">나이: 70대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 80 and dto.user_Age < 90}">
+								<div style="font-size: 14pt">나이: 80대</div>
+							</c:when>
+							<c:when test="${dto.user_Age >= 90 and dto.user_Age < 100}">
+								<div style="font-size: 14pt">나이: 90대</div>
+							</c:when>
+							<c:otherwise>
+								<div style="font-size: 14pt">나이: <span style="font-size:11pt">나이를 입력하지 않았습니다.</span></div>
+							</c:otherwise>
+						</c:choose>
 						<c:if test="${dto.user_Gender == 'M'}">
 						<div style="font-size: 14pt; margin-bottom: 60px">성별: 남</div>
 						</c:if>
@@ -590,12 +638,41 @@ textarea {
 									</div>
 								</div>
 							</div>
-
-						<!-- div style="margin-bottom:20px">|--------------|</div> -->
-					</c:if>
+						<c:if test="${dto.co_Confirm == NULL }">
+						<div>
+							<span style="font-size: 11pt; color: #898989">공인중개사 신청여부: X</span>
+						</div>
+						</c:if>
+						<c:if test="${dto.co_Confirm == '미확인' }">
+						<div>
+							<span style="font-size: 11pt; color: #898989">공인중개사 신청여부: O</span>
+							<span style="font-size: 11pt; color: #2d7eac; margin-left: 5px">인증 확인중</span>
+						</div>
+						</c:if>
+						<c:if test="${dto.co_Confirm == '확인' }">
+						<div>
+							<span style="font-size: 11pt; color: #898989">${dto.user_Nm}은 <span style="color:red">인증된 공인중개사</span>이십니다!</span>
+						</div>
+						</c:if>
+						<c:if test="${dto.co_Confirm == '반려' }">
+						<div>
+							<span style="font-size: 11pt; color: #898989">${dto.user_Nm}님이 신청한 중개사 자격증이 반려되었습니다.</span>
+						</div>
+						</c:if>
+						<c:if test="${dto.co_Confirm == '처리중' }">
+						<div>
+							<span style="font-size: 11pt; color: #898989">${dto.user_Nm}님이 신청한 중개사 자격증이 처리중입니다.</span>
+						</div>
+						</c:if>
 					</div>
 				</div>
-				<!-- 
+				<div class="profile-bottom">
+					<c:if test="${user_Code ne dto.user_Code }">
+						<div class="button" onclick="location.href='/chat/create?room_UCode1=${user_Code}&room_UCode2=${param.ucode}'">
+							<a><p style="margin:5px">채팅하기</p></a>
+						</div>
+					</c:if>
+				</div>
 				<div class="description" style="text-align: center">
 					<div class="desc-nav">
 						<ul class="desc-list">
@@ -603,25 +680,95 @@ textarea {
 								style="color: #000000" class="desc-list1">자기소개</a></li>
 							<li><a href="#!" onclick="showFinishlist();"
 								class="desc-list2">완료된 리스트</a></li>
-							<li><a href="#!" class="desc-list3">이용 횟수</a></li>
+							<li><a href="#!" onclick="showUsage();" class="desc-list3">이용 횟수</a></li>
 						</ul>
 					</div>
 					<div class="desc-content-aboutme">
 						<div class="desc-content">
+							<c:if test="${ dto.user_Intro == null}">
+								<div class="desc-intro" data-behaviour="search-on-list" style="text-align:initial">
+									<span class="counter"	data-search-on-list="counter">
+										${dto.user_Nm} 님이 작성한 자기소개가 없습니다.
+									</span>
+								</div>
+							</c:if>
+							<c:if test="${ dto.user_Intro != null}">
 								<div class="desc-intro" data-behaviour="search-on-list" style="text-align:initial">
 									<span class="counter"	data-search-on-list="counter">
 										${dto.user_Intro}
 									</span>
 								</div>
+							</c:if>
 						</div>
 					</div>
 					<div></div>
-					<a class="req_No" href="/board/detail?req_No=4"><div class="desc-content-finishlist"
-						style="margin: 0 auto; width: 900px; display: none">
+					<div class="desc-content-finishlist">
 					</div>
-					</a>
+					<div class="desc-usage" style="margin: 0 auto; width: 900px; padding-top: 60px; display: none">
+						<div class="usage-left" style="width:420px; display:inline-block; float: right; padding-top:15px">
+							<ul class="bar-graph" id="ul-left">
+								<li>
+									<p style="font-size:20pt; font-weight:bold"><꿀벌></p>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[모든 기간] 의뢰 수행완료 비율</p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">지원</span>한 의뢰 총 갯수 : ${resTotal } 건<p>
+									<p>${dto.user_Nm} 님이 현재 <span id="bold">진행중</span>인 의뢰 갯수 : ${resTotal-resFinish-resCancel-resCancelZero } 건<p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">수행완료</span>한 의뢰 갯수 : ${resFinish } 건<p>
+									<p>현재까지 의뢰 시작 24시간 후 <span id="bold">수행취소</span>한 의뢰 갯수 : ${resCancel } 건<p>
+									<br>
+									<p id="ratio">꿀벌 지원 총 ${resTotal }건 중 수행완료 ${resFinish}건</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width:${ratio2}%;">${ratio2 }%</span>
+									</div>
+								</li>
+							</ul>
+							<div id="line" style="margin-left:20px; width: 110%;"></div>
+							<ul class="bar-graph" id="ul-left">
+								<li>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[최근 3개월] 의뢰 수행완료 비율</p>
+									<p>${dto.user_Nm} 님이 최근 3개월 동안 <span id="bold">지원</span>한 의뢰 총 갯수 : ${resTotal3M } 건<p>
+									<p>${dto.user_Nm} 님이 최근 3개월 동안 <span id="bold">수행완료</span>한 의뢰 갯수 : ${resFinish3M } 건<p>
+									<p>최근 3개월간 의뢰 시작 24시간 후 <span id="bold">수행취소</span>한 의뢰 갯수 : ${resCancel3M } 건<p>
+									<br>
+									<p id="ratio">꿀벌 지원 총 ${resTotal3M }건 중 수행완료 ${resFinish3M}건</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width:${ratio2_3M}%;">${ratio2_3M }%</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="usage-right" style="width: 420px; display: inline-block; border-right: 1px dashed #898989; padding-right:35px">
+							<ul class="bar-graph" id="ul-right">
+								<li>
+									<p style="font-size:20pt; font-weight:bold"><의뢰인></p>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[모든 기간] 의뢰 대비 꿀벌평가 완료 비율</p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">의뢰</span>한 게시글 총 갯수 : ${reqTotal } 건<p>
+									<p>${dto.user_Nm} 님이 현재 <span id="bold">의뢰중</span>인 게시글 갯수 : ${reqTotal - reqFinish -reqCancel} 건<p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">꿀벌 평가 완료</span>한 게시글 : ${reqFinish } 건<p>
+									<p>${dto.user_Nm} 님이 현재까지 <span id="bold">요청취소</span>한 게시글 갯수 : ${reqCancel } 건<p>
+									<br>
+									<p id="ratio">의뢰글 총 ${reqTotal }건 중 꿀벌평가 ${reqFinish }건 완료</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width: ${ratio}%;">${ratio }%</span>
+									</div>
+								</li>
+							</ul>
+							<div id="line"></div>
+							<ul class="bar-graph" id="ul-right">
+								<li>
+									<p style="font-size:16pt; font-weight:bold; color:#5a76ff">[최근 3개월] 의뢰 대비 꿀벌평가 완료 비율</p>
+									<p>${dto.user_Nm} 님이 최근 3개월 간 <span id="bold">의뢰</span>한 게시글 총 갯수 : ${reqTotal3M } 건<p>
+									<p>${dto.user_Nm} 님이 최근 3개월 간 <span id="bold">꿀벌 평가 완료</span>한 게시글 : ${reqFinish3M } 건<p>
+									<p>${dto.user_Nm} 님이 최근 3개월 간 <span id="bold">요청취소</span>한 게시글 갯수 : ${reqCancel3M } 건<p>
+									<br>
+									<p id="ratio">의뢰글 총 ${reqTotal3M }건 중 꿀벌평가 ${reqFinish3M }건 완료</p>
+									<div class="bar-wrap">
+										<span class="bar-fill" style="width: ${ratio3M}%;">${ratio3M }%</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
-				-->
 			</div>
 		</div>
 	</div>
@@ -629,71 +776,72 @@ textarea {
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	(function($) { // Begin jQuery
-		$(function() { // DOM ready
-			// Toggle open and close nav styles on click
-			$('#nav-toggle').click(function() {
-				$('nav ul').slideToggle();
-			});
-			// Hamburger to X toggle
-			$('#nav-toggle').on('click', function() {
-				this.classList.toggle('active');
-			});
-			$('#wrap').css('min-height','150vh');
-			
-		}); // end DOM ready
-	})(jQuery); // end jQuery
-
 	//자기소개 보여줌
 	function showDescMe() {
-		$(".desc-content-aboutme").show();
-		$(".upload-area").hide();
+		$(".desc-content-aboutme").fadeIn(600);
+		$(".desc-usage").hide();
 		$(".desc-content-finishlist").hide();
 		$(".desc-list1").css("color", "#000000");
 		$(".desc-list2").css("color", "#898989");
+		$(".desc-list3").css("color", "#898989");
 
 	}
 
+	//이용횟수 보여줌
+	function showUsage() {
+		$(".desc-content-aboutme").hide();
+		$(".desc-usage").fadeIn();
+		$(".desc-content-finishlist").hide();
+		$(".desc-list1").css("color", "#898989");
+		$(".desc-list2").css("color", "#898989");
+		$(".desc-list3").css("color", "#000000");
+
+	}
+	
 	//완료된 리스트 보여줌
 	function showFinishlist() {
 		$(".desc-content-aboutme").hide();
-		$(".upload-area").hide();
-		$(".desc-content-finishlist").show();
+		$(".desc-usage").hide();
+		$(".desc-content-finishlist").fadeIn();
 		$(".desc-list1").css("color", "#898989");
 		$(".desc-list2").css("color", "#000000");
+		$(".desc-list3").css("color", "#898989");
 		
 		let stat = "완료"
-		let ucode = ${user_Code};
+		let ucode = ${dto.user_Code};
 		let data = {stat : stat, ucode : ucode};
 		
 		$.ajax({
 			type: "post",
-			url: "mypage/reqroom",
+			url: "/mypage/reqroom",
 			data : data,
 			success : function(result){
 				$(".desc-content-finishlist").empty();
-				for(let i=0; i<result.length; i++){
-					$(".desc-content-finishlist").append('<div class="finish-top" style="float: right; width: 900px; height:20px">'
-														+'<div style="float: right"></div></div>'
-														+'<div class="finish-mid" style="width: 900px">'
-														+'<div class="finish-mid-left" style="display: inline-block; width: 200px; height: 200px; float: left; border:3px solid #80808075; border-radius: 10px">'
-														+'<div class="room-img"><img style="width:203px; height:203px; border-radius:10px" src='+result[i].fi_Nm+'></div></div>'
-														+'<div class="finish-mid-right" style="display: inline-block; width: 670px; height: 200px; float: right; border:3px solid #80808075; border-radius: 10px">'
-														+'<div class="req-desc" style="display: inline-block; float: left; height: 200px">'
-														+'<p style="margin: 5px 10px; font-size: 16pt; text-align:left">기한 :'+result[i].req_EDate+'</p>'
-														+'<p style="margin: 135px 10px 0 10px; font-size: 12pt">'+result[i].home_Addr+'</p>'
+				if(result.length == 0){
+					$(".desc-content-finishlist").append('<div style="width:900px;height:300px;padding-top:130px">완료한 수행내역이 없습니다.</div>');
+				}else{
+					for(let i=0; i<result.length; i++){
+						$(".desc-content-finishlist").append('<div class="my-res-list-content-all" id="my-res-list-content-all">'
+													+'<div class="my-res-list-content-inner" id="my-res-list-img" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'
+													+(result[i].fi_Nm != null? '<img src="'+result[i].fi_Nm+'">':'<img src="/images/importToJsp/homeimg.png">')
+													+'</div>'
+													+'<div id="my-res-list-text">'
+													+'<div class="my-res-list-content-inner" id="my-res-list-stat" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'
+													+'<label id="res-stat">'+result[i].req_Stat+'</label></div>'
+													+'<div class="my-res-list-content-inner" id="my-res-list-title"	onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'+result[i].req_Title+'</div>'
+													+'<div class="my-res-list-content-inner" id="my-res-list-point"	onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'+result[i].req_Point+'&nbsp; <i class="fa-solid fa-p"> </i></div>'
+													+'<h4 class="my-res-list-content-inner" id="my-res-list-ltd-title" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">요청 정보</h4>'
+													+'<div class="my-res-list-content-inner" id="my-res-list-dl-dt-dd" onclick="location.href=\'/board/detail?req_No='+result[i].req_No+'\'">'
+													+'<dl id="my-res-list-dl">'
+													+'<div id="my-res-list-ltd-box">'
+														+'<dt id="my-res-list-dt">매물주소</dt>'
+														+'<dd id="my-res-list-dd">'+result[i].home_Addr+'</dd>'
 														+'</div>'
-														+'<div class="req-title" style="display: inline-block">'
-														+'<p style="line-height: 150px; font-size: 20pt">'+result[i].req_Title+'</p>'
-														+'</div>'
-														+'<div class="req-point" style="display: inline-block; float: right; height: 200px">'
-														+'<p style="font-size: 20pt; line-height: 200px; margin: 0 18px">'+result[i].req_Point+'P</p>'
-														+'</div></div></div>'
-														+'<div class="finish-bot" style="width: 900px;">'
-														+'<div class="button" style="float: left; width: 80px; margin-top: 10px; margin-left: 55px; border-radius: 30px">'
-														+'<p style="margin: 5px">완료</p>'
-														+'</div></div>');
-					$(".req_No").attr("href","/board/detail?req_No="+result[i].req_No);
+														+'<div id="my-res-list-ltd-box" class="my-res-list-ltd-detail-box">'
+														+'<dt id="my-res-list-dt">방문기한</dt>'
+														+'<dd id="my-res-list-dd">'+result[i].req_EDate+'</dd>'
+														+'</div></dl></div></div></div>');
+					}
 				}
 			},
 			error: function(){
@@ -714,18 +862,26 @@ textarea {
 	}
 	//내가 딴 꿀 수확량 구현
 	window.addEventListener("load", () => {
-		  $("#progress_bar").css({
-		    width: ${user_Grade}+"%"
-		  });
+		if(${dto.user_Grade} <= 100){
+			  $("#progress_bar").css({
+			    width: ${dto.user_Grade}+"%"
+			  });
+		  }else if(${dto.user_Grade} > 100){
+			  $("#progress_bar").css({
+				    width: 100+"%"
+				  });
+		  }
 		  
-		  if(${user_Grade}>=0 && ${user_Grade}<=29){
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #7a3950 0%, #370617 100%)');
-		  }else if(${user_Grade}>=30 && ${user_Grade}<=45){
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #e16b6f 0%, #9d0208 100%)');
-		  }else if(${user_Grade}>=46 && ${user_Grade}<=60){
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #ffc57b 0%, #f48c06 100%)');
+		  if(${dto.user_Grade}>=0 && ${dto.user_Grade}<=29){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(199 112 0) 0%, rgb(145 81 0) 100%)');
+		  }else if(${dto.user_Grade}>=30 && ${dto.user_Grade}<=45){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(241 241 241) 0%, rgb(161 161 161) 100%)');
+		  }else if(${dto.user_Grade}>=46 && ${dto.user_Grade}<=60){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(253 255 178) 0%, rgb(225 197 0) 100%)');
+		  }else if(${dto.user_Grade}>=61 && ${dto.user_Grade}<=100){
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(202 255 241) 0%, rgb(0 209 132) 100%)');
 		  }else{
-			  $('#progress_bar').css('background-image','linear-gradient(to bottom, #ffdd86 0%, #ffba08 100%)');
+			  $('#progress_bar').css('background-image','linear-gradient(rgb(196 244 255) 0%, rgb(0 180 209) 100%)');
 		  }
 		  
 		  function animateValue(obj, start, end, duration) {
@@ -967,6 +1123,14 @@ textarea {
 		location.reload();
 	})
 	
+</script>
+<script>
+	//등급제도 설명 나타나게하기
+	$(".grade_tooltip").mouseover(function(){
+		$(".grade_tooltip-data").fadeIn();
+	}).mouseout(function(){
+		$(".grade_tooltip-data").fadeOut();
+	});
 </script>
 
 </html>

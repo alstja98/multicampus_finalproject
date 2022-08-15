@@ -1,16 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>꿀단지</title>
+<title>Waggle 게시판</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/guideline.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style type="text/css">
 
-.board {
+.middle {
+   margin: 0;
+   padding: 0;
+}
+
+.guideline {
+   margin: 0 auto;
+   width: 1125px;
+}
+
+.guideline-all i {
+	display: inline-block;
+	color: #151515;
+}
+
+.guideline-all li {
+	display: inline-block;
+}
+
+.guideline-all p {
+	display: inline-block;
+	font-size: 16px;
+}
+
+/* .board {
   	width: 800px;
   	margin-left: auto;
   	margin-right: auto;
@@ -60,165 +88,467 @@
 .req-btn:active {
 	transform: translate(0.05em, 0.05em);
 	box-shadow: 0.05em 0.05em;
+} */
+
+
+
+/* 여기가 찐!!!!!!!!!!!!!!  
+
+.paging {
+	text-align: center;
 }
 
+.paging li {
+	list-style: none;
+	display: inline-block;
+}
+
+.board-all {
+
+}
+
+#board-img {
+	border-radius: 18px;
+	position: relative;
+}
+
+.board-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
+    margin: 0 auto;
+    
+}
+
+#content-all {
+	padding: 20px;
+	/* text-align: center;
+}
+
+img {
+	width: 495px;
+    height: 465px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+#req-stat {
+	background-color: #fff;
+	border-radius: 18px;
+	border-style: none;
+	color: #222;
+	font-size: 12px;
+	padding: 4px 12px;
+}
+
+#req-stat {
+	position: absolute;
+    font-weight: bold;
+    left: 20px;
+    top: 17px;
+}
+
+.req-btn {
+	border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: .25px;
+    line-height: normal;
+    padding: 5px 5px;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    color: #222222;
+    padding: 10px;
+    width: 120px;
+}
+
+.req-btn:disabled {
+	 pointer-events: none;
+}
+
+.req-btn:hover {
+	 color: #fff;
+	 background-color: #1A1A1A;
+	 box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+	 transform: translateY(-2px);
+}
+
+.req-btn:active {
+	 box-shadow: none;
+	 transform: translateY(0);
+}
+
+.board {
+	display: flex;
+    justify-content: flex-end;
+    max-width: 80%;
+    font-weight: bold;
+}
+
+#board-point {
+	font-weight: bold;
+}
+
+ */
+ 
+.paging {
+	text-align: center;
+}
+
+.paging li {
+	list-style: none;
+	display: inline-block;
+}
+
+.nowpage {
+	font-weight: bold;
+	color: #000000 !important;
+}
+ 
+#paging-a {
+	text-decoration: none;
+	padding: 8px;
+	color: #878787;
+}
+
+#paging-a:visited {
+	color: #878787;
+}
+
+.paging-a {
+	text-decoration: none;
+	padding: 8px;
+	color: #878787;
+}
+
+.paging-a:visited {
+	color: #878787;
+}
+
+.board-all img {
+	width: 310px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+ 
+#board-img {
+	display: inline-block;
+    vertical-align: top;
+    align-self: center;
+    padding: 0px 40px 0px 0px;
+}
+ 
+#board-text {
+	display:inline-block;
+	width: 550px;
+    height: 300px;
+    padding: 40px 0px 40px 40px;
+    border-left: 1px solid #ebebeb;
+}
+ 
+#content-all {
+	display: flex;
+    justify-content: center;
+}
+
+#board-point {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 550px;
+    height: 60px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size:16pt;
+    font-weight:bold;
+}
+ 
+#board-dl {
+	display: flex;
+    min-height: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+} 
+
+.board-content-all:hover{
+	box-shadow: inset 0 0 0 15em #f7f9fa;
+}
+.board-content-all{
+	width:1020px;
+	margin:0 auto;
+	border-radius:30px;
+	transition: 1s;
+}
+
+.board-dt {
+	line-height: 14px;
+    font-size: 15px;
+    letter-spacing: -.06px;
+    letter-spacing: -.33px;
+    color: rgba(34,34,34,.5);
+}
+
+.board-dd {
+	margin: 4px 0px 0px 0px;
+    word-break: break-word;
+    line-height: 17px;
+    font-size: 15px;
+    
+}
+ 
+#board-ltd-box1 {
+	padding: 0 12px;
+	flex: 1;
+} 
+
+#board-ltd-box2 {
+	padding: 0 12px;
+	flex: 1;
+} 
+
+#board-ltd-box3 {
+	padding: 0 12px;
+	flex: 1;
+} 
+
+.board-ltd-detail-box {
+	border-left: 1px solid #ebebeb;
+}
+
+#board-dl-dt-dd {
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+	cursor: pointer;
+}
+
+#board-ltd-title {
+	line-height: 22px;
+    padding: 21px 0 12px;
+    font-size: 18px;
+    letter-spacing: -.15px;
+    margin: 0;
+}
+ 
+#board-stat {
+	display: inline-block;
+	padding-top: 1px;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+ 
+#req-stat {
+	font-weight: 800;
+    border-bottom: 2px solid #222;
+}
+ 
+#board-title {
+	margin-bottom: 6px;
+    font-size: 18px;
+    letter-spacing: -.09px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.middle-btn {
+	display: flex;
+    justify-content: flex-end;
+    max-width: 1380px;
+}
+
+/* 버튼 */
+.req-btn {
+  color: var(--color);
+  transition: 0.25s;
+  margin-bottom:20px;
+}
+.req-btn:hover, .req-btn:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+  border-color: var(--hover);
+  color: #fff;
+}
+
+.req-btn {
+  font-weight: 600;
+   color: #fff;
+   background-color: #222;
+   padding: 0 18px;
+   height: 42px;
+   line-height: 40px;
+   border-radius: 12px;
+   font-size: 14px;
+   letter-spacing: -.14px;
+   cursor: pointer;
+  --color: #262626;
+  --hover: #f9a73d;
+  border:none;
+}
+
+/* 버튼 */
+/*
+.req-btn {
+	font-weight: 600;
+    color: #fff;
+    background-color: #222;
+    padding: 0 18px;
+    height: 42px;
+    line-height: 40px;
+    border-radius: 12px;
+    font-size: 14px;
+    letter-spacing: -.14px;
+    cursor: pointer;
+    
+}
+ */
 </style>
 
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-	
+   <div id="wrap">
    	<div class="guideline">
    		<ul class="guideline-all">
 			<li>
 				<a href="javascript:void(0)">
 					<i class="fa-solid fa-house"></i>
 				</a>
-				<p>HOME > 꿀단지</p>
+				<p>HOME > 꿀단지목록</p>
 			</li>
    		</ul>
    	</div>
    	
-	<div class="middle">	
-		<div class="board">
-			<button class="req-btn" onclick="location.href='/board/requestform'">요청하기</button>
-			<div id="data-contents"></div>
-        	<div id="js-pagination"></div>
-		</div>
-		
+	<div class="middle-btn">	
+			<button type="button" class="req-btn" onclick="location.href='/board/requestform'">새로운 요청하기</button>
     </div>
+    
+   <div class="board-all">
+   	 <div class="board-content">
+          <c:choose>
+             <c:when test="${empty list }">
+                <tr>
+                   <td colspan="4" class="board-content">문의 내용이 없습니다.</td>
+                </tr>
+             </c:when>
+             <c:otherwise>
+             	<input id="list_len" type="hidden" value="${fn:length(list) }">
+                <c:forEach items="${list }" var="dto" varStatus="status">
+                	<div class="board-content-all" id="content-all">
+                	 <input id="Lat_${status.index}" type="hidden" value="${dto.home_Lat }">
+                	 <input id="Lng_${status.index}" type="hidden" value="${dto.home_Lng }">
+
+					 <div class="board-content-inner" id="board-img" onclick="location.href='/board/detail?req_No=${dto.req_No}'">
+						 <c:if test="${dto.fi_Nm != null }">
+						 <img src=${dto.fi_Nm }>
+						 </c:if>
+						 <c:if test="${dto.fi_Nm == null }">
+						 <img src="/images/importToJsp/homeimg.png">
+						 </c:if>
+					 </div>
+					 
+					  <div id="board-text">
+					   <div class="board-content-inner" id="board-stat" onclick="location.href='/board/detail?req_No=${dto.req_No}'">
+					    <label id="req-stat">${dto.req_Stat }</label>
+					   </div>
+					    <div class="board-content-inner" id="board-title" onclick="location.href='/board/detail?req_No=${dto.req_No}'">${dto.req_Title }</div>
+					     <div class="board-content-inner" id="board-point" onclick="location.href='/board/detail?req_No=${dto.req_No}'">${dto.req_Point }&nbsp;P</i></div>
+						
+						 <h4 class="board-content-inner" id="board-ltd-title" onclick="location.href='/board/detail?req_No=${dto.req_No}'">요청 정보</h4>
+						  <div class="board-content-inner" id="board-dl-dt-dd" onclick="location.href='/board/detail?req_No=${dto.req_No}'">	
+							<dl id="board-dl">
+							  <div id="board-ltd-box1">
+								<dt class="board-dt">매물주소</dt>
+								<dd class="board-dd">${dto.home_Addr }</dd>
+							  </div>
+							  <div id="board-ltd-box2" class="board-ltd-detail-box">
+								<dt class="board-dt">요청매물과 나와의 거리</dt>
+								<dd id="Km_${status.index}" class="board-dd">??km</dd>
+							  </div>
+							  <div id="board-ltd-box3" class="board-ltd-detail-box">
+								<dt class="board-dt">방문기한</dt>
+								<dd class="board-dd">${dto.req_EDate }</dd>
+							 </div>
+							</dl>
+						  </div>
+						</div>
+					   
+					  </div>
+					  
+                </c:forEach>
+             </c:otherwise>
+          </c:choose>
+   	 </div>
+   </div>
+	<ul class="paging">
+			<c:if test="${paging.prev}">        
+				<li class="paging">
+					<a class="paging-a" href='<c:url value="/board/list?page=${paging.startPage-1}"/>'>이전</a>
+				</li>    
+			</c:if>
+			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="num">
+				<li>
+					<a class="${paging.cri.page == num ? 'nowpage' : null }" id="paging-a" href='<c:url value="/board/list?page=${num}"/>'>${num}</a>
+				</li>    
+			</c:forEach>
+			<c:if test="${paging.next && paging.endPage > 0}">        
+				<li>
+					<a class="paging-a" href='<c:url value="/inquiry/list?page=${paging.endPage+1}"/>'>다음</a>
+				</li>    
+	 	 	</c:if>
+		</ul>
+ </div>
+	
+    
 	<%@ include file="footer.jsp" %>
 </body>
-
 <script type="text/javascript">
-
-	var list = ${List}
-	var current_page = ${Current_page}
-	var _totalCount = list.length
-
-	function renderPagination(currentPage) {
-		// 페이지에 들어갈 게시글 갯수와 한번에 볼수 있는 페이지 그룹 수
-		var content_num = 2;
-		var group_num = 3;
-		
-		var totalPage = Math.ceil(_totalCount / content_num);
-		var pageGroup = Math.ceil(currentPage / group_num);
-		
-		var last = pageGroup * group_num;
-		if (last > totalPage) last = totalPage;
-		var first = last - (group_num - 1) <= 0 ? 1 : last - (group_num - 1);
-		var next = last + 1;
-		var prev = first - 1;
-		
-		// 현재 게시물의 전체 개수가 content_num개 이하면 pagination을 숨김
-		if (_totalCount <= content_num) return; 
-
-		const fragmentPage = document.createDocumentFragment();
-		if (prev > 0) {
-			var allpreli = document.createElement('li');
-			allpreli.insertAdjacentHTML("beforeend", `<a href='#js-bottom' id='allprev'><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>`);
-			
-			var preli = document.createElement('li');
-			preli.insertAdjacentHTML("beforeend", `<a href='#js-bottom' id='prev'><i class="fa fa-angle-left" aria-hidden="true"></i></a>`);
-			
-			fragmentPage.appendChild(allpreli);
-			fragmentPage.appendChild(preli);
-		}
-
-		for (var i = first; i <= last; i++) {
-			const li = document.createElement("li");
-			li.insertAdjacentHTML("beforeend", "<a href='#js-bottom' id='page-"+i+"' data-num='"+i+"'>"+i+"</a>");
-			fragmentPage.appendChild(li);
-		}
-
-		if (last < totalPage) {
-			var allendli = document.createElement('li');
-			allendli.insertAdjacentHTML("beforeend", `<a href='#js-bottom'  id='allnext'><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>`);
-			
-			var endli = document.createElement('li');
-			endli.insertAdjacentHTML("beforeend", `<a  href='#js-bottom'  id='next'><i class="fa fa-angle-right" aria-hidden="true"></i></a>`);
-			
-			fragmentPage.appendChild(endli);
-			fragmentPage.appendChild(allendli);
-		}
-
-		document.getElementById('js-pagination').appendChild(fragmentPage);
-		
-		$(`#js-pagination li a`).removeClass("active");
-		$(`#js-pagination li a#page-${Current_page}`).addClass("active");
-		
-		$(function() {
-			$("#js-pagination a").click(function (e) {
-				e.preventDefault();
-				var $item = $(this);
-				var $id = $item.attr("id");
-				var selectedPage = $item.text();
-		
-				if ($id == "next") selectedPage = next;
-				if ($id == "prev") selectedPage = prev;
-				if ($id == "allprev") selectedPage = 1;
-				if ($id == "allnext") selectedPage = totalPage;
-				
-				location.href="/board/list?num="+selectedPage;
-			});
-		});
-		
-		$(function(){
-			
-			var start_page = (currentPage-1)*content_num;
-			var end_page = currentPage*content_num-1;
-			if (_totalCount-1 < end_page) {
-				end_page = _totalCount-1;
-			}
-			
-			var data_contents = document.getElementById('data-contents');
-
-			for(i=start_page; i<=end_page; i++) {
-				var dto = list[i]
-				var tmp_node = document.createElement('div');
-				tmp_node.insertAdjacentHTML("beforeend", `
-						<div class="desc-content-finishlist" style="margin: 0 auto; width: 900px; height: 300px;">
-						<div class="finish-top" style="float: right; width: 900px">
-							<div style="float: right">예상거리: ??km</div>
-						</div>
-						<div class="finish-mid" style="width: 900px">
-							<div class="finish-mid-left" onclick="location.href='/board/detail?req_No=`+dto.req_No+`'" style="display: inline-block; width: 200px; height: 200px; float: left; border:3px solid #80808075; border-radius: 10px">
-								<div class="room-img">
-									<img src="`+dto.fi_Nm+`" alt="🐝Waggle" height="200px" width="200px" style="border-radius: 10px;" />
-								</div>
-							</div>
-							<div class="finish-mid-right"  onclick="location.href='/board/detail?req_No=`+dto.req_No+`'"  style="position: relative; display: inline-block; width: 670px; height: 200px; float: right; border:3px solid #80808075; border-radius: 10px">
-								<div class="req-desc"
-									style="display: inline-block; float: left; height: 200px">
-									<p style="margin: 5px 10px; font-size: 16pt">기한 : `+dto.req_EDate+`</p>
-									<p style="margin: 125px 10px; font-size: 16pt">`+dto.home_Addr+`</p>
-								</div>
-								<div class="req-title" style="position: absolute; left:250px; ">
-									<p style="line-height: 150px; width: 300px; font-size: 20pt; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">`+dto.req_Title+`</p>
-								</div>
-								<div class="req-point"
-									style="display: inline-block; float: right; height: 200px">
-									<p style="font-size: 20pt; line-height: 200px; margin: 0 18px">`+dto.req_Point+`P</p>
-								</div>
-							</div>
-						</div>
-						<div class="finish-bot" style="width: 900px;">
-							<div style="float: left; width: 80px; margin-top: 10px; margin-left: 55px; border-radius: 30px; border: 2px solid #092C4C; text-align: center;">
-								<p style="margin: 5px">`+dto.req_Stat+`</p>
-							</div>
-						</div>
-					</div>
-						`);
-				data_contents.appendChild(tmp_node);
-			}
-			
-		});
+	if(${checking} == 0) {
+		var check = false;
+	} else {
+		var check = true;
+		var user_lat = ${user_add.ua_Lat};
+		var user_lng = ${user_add.ua_Lng};		
 	}
-	
-	
-	renderPagination(current_page);
 
+	$(function(){
+		var len = $("#list_len").val();
+		for(var i=0; i<len; i++) {
+			var home_lat = $("#Lat_"+i).val();
+			var home_lng = $("#Lng_"+i).val();
+			
+			if(check) {
+				var distance = getDistanceFromLatLonInKm(user_lat,user_lng,home_lat,home_lng);
+				if(distance > 1) {
+					$("#Km_"+i).text(distance.toFixed(1)+' Km');					
+				} else {
+					$("#Km_"+i).text( (distance.toFixed(3) * 1000) + ' m');
+				}
+				
+			} else {
+				$("#Km_"+i).html("'회원정보 수정'에서<br>주소를 입력해 주세요");
+			}
+			
+		}
+		
+	});
 	
+	function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+	    function deg2rad(deg) {
+	        return deg * (Math.PI/180)
+	    }
+
+	    var R = 6371; // Radius of the earth in km
+	    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+	    var dLon = deg2rad(lng2-lng1);
+	    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+	    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	    var d = R * c; // Distance in km
+	    return d;
+	}
+
+
 </script>
-
 </html>

@@ -2,12 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Roboto:400"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Waggle 포인트 충전</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 <style>
 .middle {
 	margin: 0;
@@ -15,7 +21,7 @@
 }
 .middle-top{
 	margin: 0;
-	padding: 0;
+	padding: 1px;
 	background-color: #ECECEC;
 }
 .middle-bottom{
@@ -76,6 +82,7 @@ input {
 
 input:focus {
 	outline: none;
+	border-bottom:0px;
 }
 
 .img-x{
@@ -105,6 +112,7 @@ input:focus {
 /* active state */
 input:focus ~ .bar:before, input:focus ~ .bar:after {
 	width: 100%;
+	
 }
 
 .money-buttons{
@@ -119,10 +127,14 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
   background: transparent;
   width: 110px;
   border-radius: 10px;
-  border: 3px solid;
+  border: 2px solid;
   display: inline-block;
   margin: 0 10px 15px 10px;
   height: 35px;
+}
+
+.button:hover{
+	background-color: #c5c5c5;
 }
 
 .button p {
@@ -156,37 +168,67 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	font-size: 30px;
 }
 
-/*
-#pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.img-x:hover {
+	cursor: pointer;
 }
-*/
+
+.point-amount {
+	font-size: 1.5em;
+}
+
+
+/* 페이징 */
+.paging {
+	text-align: center;
+	padding-top: 35px;
+}
+
+.paging li {
+	list-style: none;
+	display: inline-block;
+}
+
+.nowpage {
+	font-weight: bold;
+	color: #000000 !important;
+}
+ 
+#paging-a {
+	text-decoration: none;
+	padding: 8px;
+	color: #878787;
+}
+
+#paging-a:visited {
+	color: #878787;
+}
+/* 페이징 끝 */
+
+
 </style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-
+   <div id="wrap">
 	<div class="middle">
 		<div class="middle-top">
 			<div class="guideline">
-				<ul class="guideline-all" style="margin-top:0">
+				<ul class="guideline-all">
 					<li><a href="javascript:void(0)"> <i
 							class="fa-solid fa-house"></i>
 					</a></li>
-					<p>HOME > 포인트 충전하기</p>
+					<p>HOME > 포인트 충전</p>
 				</ul>
 			</div>
 	
 			<div class="money-container">
-				<div class="money-title">포인트 충전</div>
+				<div class="money-title"><p>포인트 충전</p></div>
 				<form>
 					<div class="money">
 						<div class="img-x">
-						<input class="point-amount" type="text" style="background-color:transparent;" required placeholder="금액을 입력해주세요"><span class="bar"></span>
+						<input id="price" class="point-amount" type="text" style="background-color:transparent;" required placeholder="아래 버튼을 눌러 금액을 입력해주세요" readonly="readonly"><span class="bar"></span>
 						</div>
-						<div class="img-x" >
+						<div class="img-x" onclick="priceReset()">
 						<svg width="45" height="45" viewBox="0 0 42 42" fill="none"
 							xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -205,26 +247,30 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 				</form>
 			</div>
 			<div class="money-buttons">
-				<div class="button">
+				<div class="button" onclick="pointAdd(1000)">
 	 				<p>+1천원</p>
 				</div>
-				<div class="button">
+				<div class="button" onclick="pointAdd(5000)">
 	 				<p>+5천원</p>
 				</div>
-				<div class="button">
+				<div class="button" onclick="pointAdd(10000)">
 	 				<p>+1만원</p>
 				</div>
-				<div class="button">
+				<div class="button" onclick="pointAdd(50000)">
 	 				<p>+5만원</p>
 				</div>
 			</div>
 			<div class="charge-button">
-				<div class="button" style="width:530px">
-					<p>포인트 충전하기</p>
+				<div class="button" style="width:530px; background-color: #7300e9;" onclick="requestPay()">
+					<p style="color: white;">포인트 충전하기</p>
+				</div>
+				<div class="button" style="width:530px; background-color: #F7E600;" onclick="requestPayK()">
+					<p>포인트 충전하기(카카오페이)</p>
 				</div>
 			</div>
 			<div class="blank"></div>
 		</div>
+		
 		<div class="middle-bottom">
 			<div class="point-history">
 			
@@ -234,44 +280,79 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 				<div class="history-main" style="margin:0 auto; width:1000px">
 					<div class="pointcharge">
 					</div>
-						<c:forEach var="list" items="${use}">
-							<div class="pointuse" style="border-bottom: 1px solid #898989; width:1000px; height:130px; margin-top:18px">
-								<div class="use-left"  style="width:110px; height:110px; display:inline-block">
-									<div style="width:100px; height:100px; border:5px solid #898989; border-radius:150px; color:#898989; font-size:20pt; text-align:center; line-height:100px; float:left">
-									사용
+						<c:choose>
+							<c:when test="${fn:length(list) eq 0}">
+								<h3>포인트 이용내역이 없습니다.</h3>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="dto" items="${list}">
+									<div class="pointuse" style="border-bottom: 1px solid #898989; width:1000px; height:130px; margin-top:18px">
+										<div class="use-left"  style="width:110px; height:110px; display:inline-block">
+											<c:if test="${dto.type == '사용'}">
+											<div style="width:100px; height:100px; border:5px solid #e37b7b; border-radius:150px; color:#e37b7b; font-size:20pt; text-align:center; line-height:100px; float:left">
+											${dto.type}
+											</div>
+											</c:if>
+											<c:if test="${dto.type == '충전' or dto.type=='획득'}">
+											<div style="width:100px; height:100px; border:5px solid #3a6589bf; border-radius:150px; color:#3a6589bf; font-size:20pt; text-align:center; line-height:100px; float:left">
+											${dto.type}
+											</div>
+											</c:if>
+										</div>
+										<div class="use-middle" style="width:650px; height:110px; padding-left:35px; display:inline-block">
+											<fmt:parseDate value="${dto.date }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+											<div><fmt:formatDate value="${parsedDateTime }" pattern="yyyy-MM-dd"/></div>
+											<div style="font-size:20pt">포인트 ${dto.type}</div>
+											<div style="padding-top:30px">잔여 포인트: &nbsp;${dto.price_Sum}&nbsp;P</div>
+										</div>
+										<div class="use-right" style="width:200px; height:110px; display:inline-block; text-align:center; float:right">
+											<c:choose>
+												<c:when test="${dto.type eq '사용'}">
+													<div style="font-size:30pt; margin-top:25px; color:#e37b7b;">-${dto.price} P</div>
+												</c:when>
+												<c:otherwise>
+													<div style="font-size:30pt; margin-top:25px; color:#3a6589bf;">+${dto.price} P</div>
+												</c:otherwise>
+											</c:choose>
+										</div>
 									</div>
-								</div>
-								<div class="use-middle" style="width:650px; height:110px; padding-left:35px; display:inline-block">
-									<div>${list.po_Date}</div>
-									<div style="font-size:20pt">포인트 사용</div>
-									<div style="padding-top:30px">현재 포인트: ${user_Point }원</div>
-								</div>
-								<div class="use-right" style="width:200px; height:110px; display:inline-block; text-align:center; float:right">
-									<div style="font-size:30pt">-${list.po_Point} 원</div>
-									<div style="border:1px solid #3a3a3a; border-radius:10px; width:100px; height:30px; text-align:center; line-height:30px; margin-left:55px; color:#3a3a3a">내역삭제</div>						
-								</div>
-							</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+				</div>
+				<div>
+					<ul class="paging">
+						<c:if test="${paging.prev}">        
+							<li id="paging">
+								<a id="paging-a" href='<c:url value="/point/use?page=${paging.startPage-1}"/>'>이전</a>
+							</li>    
+						</c:if>
+						<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="num">
+							<li>
+								<a class="${paging.cri.page == num ? 'nowpage' : null }"  id="paging-a" href='<c:url value="/point/use?page=${num}"/>'>${num}</a>
+							</li>    
 						</c:forEach>
+						<c:if test="${paging.next && paging.endPage > 0}">        
+							<li>
+								<a id="paging-a" href='<c:url value="/point/use?page=${paging.endPage+1}"/>'>다음</a>
+							</li>    
+						</c:if>
+					</ul>
 				</div>
 			
 		
 			</div>
-			
 		</div>
 		
-		
-		
-		
 	</div>
-
+   </div>
+   <input type="hidden" value="${user_Email}" id="useremail">
+   <input type="hidden" value="${user_Code}" id="usercode">
 	<%@ include file="footer.jsp"%>
 
-    <script>
-	$(document).ready(function(){
-		$("fo")
-		
-	})
-	
-    </script>
+<script type="text/javascript" src="/js/payment.js"></script>
+<script>
+</script>
 </body>
+
 </html>

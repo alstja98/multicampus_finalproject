@@ -6,32 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MAP</title>
+<title>Waggle 매물검색</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-
-function kakaopost(){
-
-    new daum.Postcode({
-        	oncomplete: function(data) {
-        		var a = data.address;
-        		var p = data.zonecode;
-        		document.querySelector("#var1").value = p.toString();
-        		document.querySelector(".searchbar").value = a;
-        		document.getElementById('submit').click();
-   				searchLngLat();
-        	}
-    	}).open();
-    
-	};
-	
-	
-
-</script>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Sarabun");
 .blank {
@@ -64,13 +45,15 @@ function kakaopost(){
 .container {
 	margin: 0 auto;
 	position: relative;
+	width:1000px;
 }
+
 
 .searchbar {
 	font-size: 1rem;
 	width: 60rem;
 	height: 1rem;
-	border: 1px solid #d4d7e1;
+	border: 2px solid #d4d7e1;
 	outline: none;
 	border-radius: 1rem;
 	padding: 1rem;
@@ -82,6 +65,7 @@ function kakaopost(){
 .searchbar:hover {
 	width: 60rem;
 	height: 2rem;
+	background-color:#f7f9fa;
 }
 
 .button {
@@ -134,6 +118,10 @@ function kakaopost(){
 	border: 1px solid #d4d7e1;
 	border-radius: 3px;
 	font-size: 1em;
+}
+
+.input-query:hover{
+	background-color:#f7f9fa;
 }
 
 .input-query:focus ~ .counter {
@@ -212,6 +200,15 @@ div {
 	box-sizing: border-box;
 }
 
+#img-detail{
+	border:2px outset #bfbfbf;
+	border-radius:5px;
+	color:#424242;
+	font-size:16pt;
+	text-align:center;
+	padding-bottom:3px;
+	margin-top:7px;
+}
 .horizontal-scroll-wrapper {
 	position: absolute;
 	display: inline-block;
@@ -227,9 +224,10 @@ div {
 
 .horizontal-scroll-wrapper>div {
 	display: block;
-	background: #c7c7c7;
+	background: #ffffff;
 	transform: rotate(90deg) translateX(200px);
 	transform-origin: right top;
+	text-align:center;
 }
 
 .squares {
@@ -248,31 +246,79 @@ div {
 	height: 500px;
 }
 
+#map img[src*=profile]{
+	border-radius:1000px;
+}
+
+#map img[src*=http://t1.daumcdn.net/mapjsapi/images/transparent.gif]{
+	z-index:99;
+}
 .detail_img, .detail_video{
 	width: 100%;
-	height: 100%;
+	height: 83%;
 	object-fit: fill;
+}
+
+.detail_img:hover, .detail_video:hover{
+	border:5px solid #f2f0e8;
+	height: 79%;
+	width: 97%;
+}
+//이미지에 모달창 띄우기
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal_body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 200px;
+  height: 65px;
+  z-index:100;
+  
+  padding: 5px;
+  font-weight:bold;
+  text-align: center;
+
+  background-color: rgb(255, 255, 255,85%);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+  color:#0000ff;
 }
 </style>
 <body>
 	<%@ include file="header.jsp"%>
+	<div id="wrap">
 	<div class="middle">
         <div class="guideline">
          	<ul class="guideline-all">
-            	  <li><a href="javascript:void(0)">
+            	  <li>
              	 <i class="fa-solid fa-house"></i>
-              	</a>
               	</li>
-             	 <p>HOME > 지도</p>
+             	 <p>HOME > 매물검색</p>
            </ul>
      	</div>
 			
 		<div class="container" >
 			<input type="text" maxlength="12" placeholder="주소 검색하기"
-				class="searchbar" onclick="kakaopost()"> 
+				class="searchbar" onclick="kakaopost()" readonly /> 
 				<img
 				src="https://images-na.ssl-images-amazon.com/images/I/41gYkruZM2L.png"
 				alt="Magnifying Glass" class="button" onclick="kakaopost()">
+			<input type="text" maxlength="12" class="searchbar2" style="display:none"> 
 		</div>
 		
 		<form id="addr_filter" method="post">
@@ -284,48 +330,68 @@ div {
 		</div>
 		
 		<div class="table-container">
-			<div class="detail-container" data-behaviour="search-on-list">
-				<input type="text" class="input-query" data-search-on-list="search"
-					placeholder="상세주소를 입력하세요." /> <span class="counter"
-					data-search-on-list="counter"></span>
+			<div class="detail-container" >
+				<input type="text" id="search" class="input-query" onkeyup="filter()" placeholder="상세주소를 입력하세요." /> 
+				<span class="counter"></span>
 				<div class="list-wrap">
-					<ul class="list" data-search-on-list="list">
+					<ul class="list" >
 					</ul>
 				</div>
 			</div>
 			
 			<div class="horizontal-scroll-wrapper squares">
-			<!-- 
-			<c:forEach var="media" items="${list}">
-				<div>
-				<c:set var="type" value="${media.getFi_Nm()}" />
-				<c:if test="${fn:contains(type,'jpg')}">
-				<a href=""><img class="detail_img" alt="${media.getFi_Nm()}" src="${media.getFi_Nm()}"></a>
-				</c:if>
-				<c:if test="${fn:contains(type,'mp4')}">
-				<a href=""><video class="detail_video" controls ><source src="${media.getFi_Nm()}">비디오</video></a>
-				</c:if>
-				</div>
-			</c:forEach>
-			-->
 			</div>
 			
 			<div class="blank">
 			</div>
 			
 		</div>
-		
+		<div id="wdate" style="display:none"></div>
 		
 		<div id="map">
-			
 		</div>
-		
 	</div>
-
+  </div>
 	<%@ include file="footer.jsp"%>
 	
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=df487b49cd90a64d7305e577e300f2e4&libraries=services,clusterer,drawing"></script>
 	<script>
+	function kakaopost(){
+		hideMarkers();
+		var width = 500; //팝업의 너비
+		var height = 600; //팝업의 높이
+	    new daum.Postcode({
+	        	oncomplete: function(data) {
+	        		var a = data.jibunAddress;
+	        		var b = data.roadAddress;
+	        		var p = data.zonecode;
+	        		document.querySelector("#var1").value = a;
+	        		document.querySelector(".searchbar2").value = b;
+	        		document.getElementById('submit').click();
+	   				searchLngLat();
+	        	}
+	    	}).open({
+	    		left: (window.screen.width / 2) - (width / 2),
+	    	    top: (window.screen.height / 2) - (height / 2),
+	    		popupName: 'AddrSearch'
+	    	});
+    
+	};
+
+	function filter() {
+        let search = document.getElementById("search").value.toLowerCase();
+        let listInner = document.getElementsByClassName("list-item");
+
+        for (let i = 0; i < listInner.length; i++) {
+          city = listInner[i].getElementsByClassName("list-item-link");
+          if (city[0].innerHTML.toLowerCase().indexOf(search) != -1) {
+            listInner[i].style.display = "flex"
+          } else {
+            listInner[i].style.display = "none"
+          }
+        }
+      }
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.5012767241426, 127.039600248343), // 지도의 중심좌표
@@ -335,13 +401,12 @@ div {
 	// 지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
-	for(let i=0; i<4; i++){
-		
-	}
+	
 	// 모든 회원들 지도에 뿌려주기
 	$(function(){
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
+		var markers2 = [];
 		
 		var userAddr = new Array();
 		var userimg = new Array();
@@ -352,17 +417,12 @@ div {
 		userCode.push("${list.getUser_Code()}");
 		</c:forEach>
 	
-		for(var i=0; i<=3; i++) {
-			window['imageSrc'+i] = "hello" +i;
-			console.log(window['imageSrc'+i]);
-		}
-		
 		for(let i=0; i<userAddr.length; i++){
 			
 			if(userimg[i] != ""){
 				window['imageSrc'+i] = userimg[i]; // 마커이미지의 주소입니다    
 			}else {
-				window['imageSrc'+i] = '/images/profile/profile_default.jpg';
+				window['imageSrc'+i] = '/images/importToJsp/profile_default.jpg';
 			}
 			
 		    var imageSize = new kakao.maps.Size(64, 69); // 마커이미지의 크기입니다
@@ -382,38 +442,52 @@ div {
 			            clickable: true
 			        });
 			        marker.setMap(map);
-			        map.setCenter(coords);
+			        markers2.push(marker);
 			        
 					//마커 클릭시 해당 꿀벌의 마이페이지로 이동하도록
 				    kakao.maps.event.addListener(marker, 'click', function(){
-				    	window.open("/mypage/other?ucode="+userCode[i],"a",'height=' + screen.height + ',width=' + screen.width + 'fullscreen=yes');
+				    	window.open("/mypage/other?ucode="+userCode[i],"a",'height=' + 1300 + ',width=' + 1200 + 'fullscreen=yes');
 				    });
+					
 			    } else {
 			    	console.log("에러");
 			    }
 			});  
-		    
 		 
 		}
 		
-		  
+		//zoom out시에 꿀벌 사라지게
+	    kakao.maps.event.addListener(map, 'zoom_changed', function() {        
+		    var level = map.getLevel();
+		    
+		    if(level > 3){
+		    	for(var i=0; i<markers2.length; i++){
+		    		markers2[i].setMap(null);
+		    	}
+		    }else{
+		    	for(var i=0; i<markers2.length; i++){
+		    		markers2[i].setMap(map);
+		    	}
+		    }
+		});
 		
 	});
 		
 	
-
+	//검색된 마커 담는 리스트
+	var markers = [];
+	//검색한 주소 지도에 핀 설정
 	function searchLngLat(){
-		var gap = document.querySelector(".searchbar").value;
+		var gap = document.querySelector("#var1").value;
 
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
-
+		
 		// 주소로 좌표를 검색합니다
 		geocoder.addressSearch(gap, function(result, status) {
 
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
-
 		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 		        // 결과값으로 받은 위치를 마커로 표시합니다
 		        var marker = new kakao.maps.Marker({
@@ -425,17 +499,41 @@ div {
 		        map.setLevel(1);
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
+		        markers.push(marker);
+		        
+		      //zoom out시에 꿀벌 사라지게
+			    kakao.maps.event.addListener(map, 'zoom_changed', function() {        
+				    var level = map.getLevel();
+				    
+				    if(level > 3){
+				    	for(var i=0; i<markers.length; i++){
+				    		markers[i].setMap(null);
+				    	}
+				    }else{
+				    	for(var i=0; i<markers.length; i++){
+				    		markers[i].setMap(map);
+				    	}
+				    }
+				});
 		    } else {
 		    	console.log("에러");
 		    }
 		});    
 	}
 	
- 	
+	//주소 검색 창 클릭시 지도에 검색되었던 마커들 안보이게 하는 함수
+	function hideMarkers() {
+	    for (var i = 0; i < markers.length; i++) {
+	        markers[i].setMap(null);
+	    }            
+	};
+	
 	//주소창에 검색시 상세주소와 해당 영상들 나오게 하기
 	$('#submit').on("click", function(){ // #submit버튼은 kakaopost() 함수에서 click되도록 구성
-		let search_post = $('#var1').val();
-		let data = {search_post : search_post}
+		let searchbar1 = $('#var1').val();
+		let searchbar2 = $('.searchbar2').val();
+		let data = {jibunAddr : searchbar1, roadAddr : searchbar2};
+		let now = new Date();
 		
 		$.ajax({
 			type : "post",
@@ -458,20 +556,183 @@ div {
 							DAddr.push(result[i].home_DAddr);
 						}
 						
-						let unique_DAddr = Array.from(new Set(DAddr));
+						let unique_DAddr = Array.from(new Set(DAddr.sort()));
 						//중복제거한 상세주소 페이지에 뿌리기
 						for(let i=0; i<unique_DAddr.length; i++){
-							$(".list").append('<li class="list-item" data-search-on-list="list-item"><a href="" class="list-item-link">'+unique_DAddr[i]+'<span class="item-list-subtext">우편번호: '+result[i].home_Post+'</span></a></li>');
+							$(".list").append('<li class="list-item" onclick="clickDAddr(\''+unique_DAddr[i]+'\');" data-search-on-list="list-item"><a href="#" class="list-item-link">'+unique_DAddr[i]+'<span class="item-list-subtext">'+result[i].home_Addr+'</span></a></li>');
 						}
-					
-						//검색 주소에 해당하는 영상들 페이지에 뿌려주기
+						
+						//영상 뿌리기 시작
+						var test = false;
+						//json 객체중에 포인트를 사용했던 객체가 있나 테스트.
 						for(let i=0; i<result.length; i++){
-							if(result[i].fi_Nm.includes('jpg')){
-								$(".horizontal-scroll-wrapper").append('<div><a href=""><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
-							}else if(result[i].fi_Nm.includes('mp4')){
-								$(".horizontal-scroll-wrapper").append('<div><a href=""><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+							if(result[i].po_UCode == ${user_Code}){
+								test = true;
 							}
 						}
+						
+						console.log(test);
+						//포인트를 사용한 객체가 없다면, fi_Nm의 중복 요소들 제거한 이후에 뿌려줌.
+						if(test == false){
+							let unique = result.filter(function(item1, idx1){
+								return result.findIndex(function(item2, idx2){
+									return item1.fi_Nm == item2.fi_Nm
+								}) == idx1;
+							}) ;
+							
+							//검색 주소에 해당하는 영상들 페이지에 뿌려주기
+							for(let i=0; i<unique.length; i++){
+								var res = new Date(unique[i].res_WDate);
+								$('#wdate').html(res.getTime());
+								if(unique[i].fi_Nm.includes('jpg') || unique[i].fi_Nm.includes('png') || unique[i].fi_Nm.includes('jpeg') || unique[i].fi_Nm.includes('tiff') || unique[i].fi_Nm.includes('jfif')){
+									//글이 24시가 넘었을 경우 블러 해제
+									if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else{ // 글이 24시가 넘지 않았을 경우 블러처리
+										//로그인한 회원이 글 작성자인경우 다 보여줌
+										if(${user_Code}==unique[i].res_UCode){
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}else if(${user_Code}==1){//관리자 보여줌
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}else{//로그인한 회원이 글 작성자가 아닐 경우
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><img style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}
+									}
+								}else if(unique[i].fi_Nm.includes('mp4') || unique[i].fi_Nm.includes('avi')){
+									if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else{
+										//로그인한 회원이 글 작성자인경우 다 보여줌
+										if(${user_Code}==unique[i].res_UCode){
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}else if(${user_Code}==1){
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}else{//로그인한 회원이 글 작성자가 아닐 경우
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><video style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}
+									}
+								}
+							}
+							
+							if(unique.length < 3){
+								$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+								$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+							}
+							
+						}else{//json객체 중에 포인트를 사용한 파일이 있다면
+							var req_No = 0; //포인트 사용한 요청글 번호 구하기 위한 변수
+							var fi_num = 0; //포인트 사용한 요청글의 파일들 갯수 구하기 위한 변수
+							for(let i=0; i<result.length; i++){
+								if(result[i].po_UCode == ${user_Code}){
+									req_No = result[i].req_No;
+									fi_num += 1;
+								}
+							}
+							
+							console.log(req_No);
+							console.log(fi_num);
+							for(let i=0; i<result.length; i++){
+								//포인트 사용한 요청글과 관련없는 요청글들은 그냥 뿌려줌
+								if(result[i].req_No != req_No){
+									var res = new Date(result[i].res_WDate);
+									$('#wdate').html(res.getTime());
+									if(result[i].fi_Nm.includes('jpg') || result[i].fi_Nm.includes('png') || result[i].fi_Nm.includes('jpeg') || result[i].fi_Nm.includes('tiff') || result[i].fi_Nm.includes('jfif')){
+										//글이 24시가 넘었을 경우 블러 해제
+										if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}else{ // 글이 24시가 넘지 않았을 경우 블러처리
+											//로그인한 회원이 글 작성자인경우 다 보여줌
+											if(${user_Code}==result[i].res_UCode){
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+											}else if(${user_Code}==1){//관리자 보여줌
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+											}else{//로그인한 회원이 글 작성자가 아닐 경우
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><img style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+											}
+										}
+									}else if(result[i].fi_Nm.includes('mp4') || result[i].fi_Nm.includes('avi')){
+										if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+											$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+										}else{
+											//로그인한 회원이 글 작성자인경우 다 보여줌
+											if(${user_Code}==result[i].res_UCode){
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+											}else if(${user_Code}==1){
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+											}else{//로그인한 회원이 글 작성자가 아닐 경우
+												$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><video style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+											}
+										}
+									}
+								}
+							}
+							
+							//포인트 사용한 요청글과 관련한 글들이라면
+							//블러 처리를 할 필요가 없고, 중복 가능하니까 중복처리 해서 뿌려줌
+							//글 작성자는 포인트를 사용할 리가 없으니까 글 작성자 고려요소도 제거 가능
+							//돈 낸거니까 시간도 고려안해도 됨.
+							let unique = result.filter(function(item1, idx1){
+								return result.findIndex(function(item2, idx2){
+									return item1.fi_Nm == item2.fi_Nm
+								}) == idx1;
+							}) ;
+							
+							for(let i=0; i<unique.length; i++){
+								if(unique[i].req_No == req_No){
+									if(unique[i].fi_Nm.includes('jpg') || unique[i].fi_Nm.includes('png') || unique[i].fi_Nm.includes('jpeg') || unique[i].fi_Nm.includes('tiff') || unique[i].fi_Nm.includes('jfif')){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else if(unique[i].fi_Nm.includes('mp4') || unique[i].fi_Nm.includes('avi')){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}
+								}
+							}
+							
+							if(unique.length < 3){
+								$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+								$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+							}
+								
+						}
+						
+						/*
+						//검색 주소에 해당하는 영상들 페이지에 뿌려주기
+						for(let i=0; i<result.length; i++){
+							var res = new Date(result[i].res_WDate);
+							if(result[i].fi_Nm.includes('jpg') || result[i].fi_Nm.includes('png') || result[i].fi_Nm.includes('jpeg') || result[i].fi_Nm.includes('tiff')){
+								//글이 24시가 넘었을 경우 블러 해제
+								if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+								}else{ // 글이 24시가 넘지 않았을 경우 블러처리
+									//로그인한 회원이 글 작성자인경우 다 보여줌
+									if(${user_Code}==result[i].res_UCode){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+									}else if(${user_Code}==1){//관리자 보여줌
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+									}else{//로그인한 회원이 글 작성자가 아닐 경우
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><img style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+									}
+								}
+							}else if(result[i].fi_Nm.includes('mp4') || result[i].fi_Nm.includes('avi')){
+								if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+								}else{
+									//로그인한 회원이 글 작성자인경우 다 보여줌
+									if(${user_Code}==result[i].res_UCode){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+									}else if(${user_Code}==1){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+									}else{//로그인한 회원이 글 작성자가 아닐 경우
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><video style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+									}
+								}
+							}
+						}
+						
+						if(result.length < 3){
+							$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+							$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+						}
+						*/
 					}
 					
 			},
@@ -481,156 +742,220 @@ div {
 		})
 
 	});// function 종료
-	</script>
-</body>
-<script>
-	(function() {
-		// TODO: be more elegant here
-		function format(text) {
-			return text.replace(/ /g, '').replace(/(<([^>]+)>)/ig, '')
-					.toLowerCase();
-		}
-
-		var SearchOnList = {
-			$LIST : '[data-search-on-list=list]',
-			$SEARCH : '[data-search-on-list=search]',
-			$LIST_ITEM : '[data-search-on-list=list-item]',
-			$COUNTER : '[data-search-on-list=counter]',
-			TEMPLATE_EMTPY : '<li class="list-item list-item--disable">No results found</li>',
-
-			init : function($element) {
-				this.items = [];
-				this.itemsMatched = [];
-
-				this.$element = $element;
-				this.$list = this.$element.find(this.$LIST);
-				this.$search = this.$element.find(this.$SEARCH);
-				this.$counter = this.$element.find(this.$COUNTER);
-
-				this.items = this._getAllItems();
-				this.itemsMatched = this.items;
-
-				this._updateCounter();
-				this._handleResults();
-				this._setEventListeners();
-			},
-
-			_setEventListeners : function() {
-				this.$search.on('keyup', $.proxy(this._onKeyup, this)).on(
-						'query:changed',
-						$.proxy(this._handleQueryChanged, this)).on(
-						'query:results:some',
-						$.proxy(this._handleResults, this)).on(
-						'query:results:none',
-						$.proxy(this._handleNoResults, this))
-			},
-
-			_onKeyup : function() {
-				var query = this.$search.val(), previousQuery = this.$search
-						.data('previousQuery', query);
-
-				// TODO: Decide when query actually changed
-				if (this._queryChanged()) {
-					this.$search.trigger('query:changed', {
-						query : query,
-						previousQuery : previousQuery
-					});
+	
+	//상세주소 리스트에서 특정 호수 클릭시 해당하는 호수의 결과파일들만 나오도록 하는 함수
+	function clickDAddr(DAddr) {
+		let searchbar1 = $('#var1').val();
+		let searchbar2 = $('.searchbar2').val();
+		let now = new Date();
+		let data = {jibunAddr : searchbar1, roadAddr : searchbar2, DAddr : DAddr};
+		$(".horizontal-scroll-wrapper").empty();
+		$.ajax({
+			type : "post",
+			url : "/map/clickDAddr",
+			data : data,
+			success : function(result){
+				//영상 뿌리기 시작
+				var test = false;
+				//json 객체중에 포인트를 사용했던 객체가 있나 테스트.
+				for(let i=0; i<result.length; i++){
+					if(result[i].po_UCode == ${user_Code}){
+						test = true;
+					}
 				}
-			},
-
-			_queryChanged : function() {
-				var query = this.$search.val();
-				if ($.trim(query).length === 0
-						&& this.$search.data('previousQuery') === undefined) {
-					return false;
-				}
-				return true;
-			},
-
-			_handleQueryChanged : function(e, data) {
-				this.itemsMatched = this.items.map(function(item) {
-					if (format(item.name).match(format(data.query))) {
-						return {
-							name : item.name,
-							visible : true
+				
+				console.log(test);
+				//포인트를 사용한 객체가 없다면, fi_Nm의 중복 요소들 제거한 이후에 뿌려줌.
+				if(test == false){
+					let unique = result.filter(function(item1, idx1){
+						return result.findIndex(function(item2, idx2){
+							return item1.fi_Nm == item2.fi_Nm
+						}) == idx1;
+					}) ;
+					
+					//검색 주소에 해당하는 영상들 페이지에 뿌려주기
+					for(let i=0; i<unique.length; i++){
+						var res = new Date(unique[i].res_WDate);
+						if(unique[i].fi_Nm.includes('jpg') || unique[i].fi_Nm.includes('png') || unique[i].fi_Nm.includes('jpeg') || unique[i].fi_Nm.includes('tiff') || unique[i].fi_Nm.includes('jfif')){
+							//글이 24시가 넘었을 경우 블러 해제
+							if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+							}else{ // 글이 24시가 넘지 않았을 경우 블러처리
+								//로그인한 회원이 글 작성자인경우 다 보여줌
+								if(${user_Code}==unique[i].res_UCode){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}else if(${user_Code}==1){//관리자 보여줌
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}else{//로그인한 회원이 글 작성자가 아닐 경우
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><img style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}
+							}
+						}else if(unique[i].fi_Nm.includes('mp4') || unique[i].fi_Nm.includes('avi')){
+							if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+								$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+							}else{
+								//로그인한 회원이 글 작성자인경우 다 보여줌
+								if(${user_Code}==unique[i].res_UCode){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}else if(${user_Code}==1){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}else{//로그인한 회원이 글 작성자가 아닐 경우
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><video style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}
+							}
 						}
 					}
-					return {
-						name : item.name,
-						visible : false
+					
+					if(unique.length < 3){
+						$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+						$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
 					}
-				});
-
-				this._render();
-				this._updateCounter();
-			},
-
-			_handleNoResults : function() {
-				this.$list.html(this.TEMPLATE_EMTPY);
-			},
-
-			_handleResults : function() {
-				this.$list.empty().append(this._renderItemsVisible())
-			},
-
-			_someItemsVisible : function() {
-				return this.itemsMatched.some(function(item) {
-					return item.visible;
-				});
-			},
-
-			_render : function() {
-				(this._someItemsVisible()) ? this.$search
-						.trigger('query:results:some') : this.$search
-						.trigger('query:results:none');
-			},
-
-			_updateCounter : function() {
-				(this._someItemsVisible()) ? this.$counter.text(this
-						._renderItemsVisible().length) : this.$counter.text('');
-			},
-
-			_getAllItems : function() {
-				var $items = this.$list.find(this.$LIST_ITEM);
-
-				return $items.map(function() {
-					var $item = $(this);
-
-					return {
-						name : $item.html(),
-						visible : true
-					};
-				}).toArray();
-			},
-
-			_renderItemsVisible : function() {
-				var itemInTemplate;
-				return this.itemsMatched
-						.sort(function(a, b) {
-							if (a.name < b.name)
-								return -1
-							if (a.name > b.name)
-								return 1;
-							return 0;
-						})
-						.reduce(
-								function(items, item) {
-									itemInTemplate = '<li class="list-item" data-search-on-list="list-item">'
-											+ item.name + '</li>';
-									if (item.visible) {
-										items.push(itemInTemplate);
+					
+				}else{//json객체 중에 포인트를 사용한 파일이 있다면
+					var req_No = 0; //포인트 사용한 요청글 번호 구하기 위한 변수
+					var fi_num = 0; //포인트 사용한 요청글의 파일들 갯수 구하기 위한 변수
+					for(let i=0; i<result.length; i++){
+						if(result[i].po_UCode == ${user_Code}){
+							req_No = result[i].req_No;
+							fi_num += 1;
+						}
+					}
+					
+					console.log(req_No);
+					console.log(fi_num);
+					for(let i=0; i<result.length; i++){
+						//포인트 사용한 요청글과 관련없는 요청글들은 그냥 뿌려줌
+						if(result[i].req_No != req_No){
+							var res = new Date(result[i].res_WDate);
+							if(result[i].fi_Nm.includes('jpg') || result[i].fi_Nm.includes('png') || result[i].fi_Nm.includes('jpeg') || result[i].fi_Nm.includes('tiff') || result[i].fi_Nm.includes('jfif')){
+								//글이 24시가 넘었을 경우 블러 해제
+								if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}else{ // 글이 24시가 넘지 않았을 경우 블러처리
+									//로그인한 회원이 글 작성자인경우 다 보여줌
+									if(${user_Code}==result[i].res_UCode){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else if(${user_Code}==1){//관리자 보여줌
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else{//로그인한 회원이 글 작성자가 아닐 경우
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><img style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_img" src='+result[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
 									}
-									return items;
-								}, []);
+								}
+							}else if(result[i].fi_Nm.includes('mp4') || result[i].fi_Nm.includes('avi')){
+								if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+								}else{
+									//로그인한 회원이 글 작성자인경우 다 보여줌
+									if(${user_Code}==result[i].res_UCode){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else if(${user_Code}==1){
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}else{//로그인한 회원이 글 작성자가 아닐 경우
+										$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><video style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_video" controls ><source src='+result[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+result[i].res_WDate.substr(0,10)+'</div></a></div>');
+									}
+								}
+							}
+						}
+					}
+					
+					//포인트 사용한 요청글과 관련한 글들이라면
+					//블러 처리를 할 필요가 없고, 중복 가능하니까 중복처리 해서 뿌려줌
+					//글 작성자는 포인트를 사용할 리가 없으니까 글 작성자 고려요소도 제거 가능
+					//돈 낸거니까 시간도 고려안해도 됨.
+					let unique = result.filter(function(item1, idx1){
+						return result.findIndex(function(item2, idx2){
+							return item1.fi_Nm == item2.fi_Nm
+						}) == idx1;
+					}) ;
+					
+					for(let i=0; i<unique.length; i++){
+						if(unique[i].req_No == req_No){
+							if(unique[i].fi_Nm.includes('jpg') || unique[i].fi_Nm.includes('png') || unique[i].fi_Nm.includes('jpeg') || unique[i].fi_Nm.includes('tiff') || unique[i].fi_Nm.includes('jfif')){
+								$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><img class="detail_img" src='+unique[i].fi_Nm+'><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+							}else if(unique[i].fi_Nm.includes('mp4') || unique[i].fi_Nm.includes('avi')){
+								$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+unique[i].req_No+'"><video class="detail_video" controls ><source src='+unique[i].fi_Nm+'></video><div id="img-detail">업로드 날짜: '+unique[i].res_WDate.substr(0,10)+'</div></a></div>');
+							}
+						}
+					}
+					
+					if(unique.length < 3){
+						$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+						$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+					}
+						
+				}
+				
+				/*
+					//검색 주소에 해당하는 영상들 페이지에 뿌려주기
+					for(let i=0; i<result.length; i++){
+						var res = new Date(result[i].res_WDate)
+						if(result[i].fi_Nm.includes('jpg') || result[i].fi_Nm.includes('png') || result[i].fi_Nm.includes('jpeg') || result[i].fi_Nm.includes('tiff')){
+							//글이 24시가 넘었을 경우 블러 해제
+							if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+								$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+							}else{ // 글이 24시가 넘지 않았을 경우 블러처리
+								//로그인한 회원이 글 작성자인경우 다 보여줌
+								if(${user_Code}==result[i].res_UCode){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+								}else if(${user_Code}==1){//관리자 보여줌
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><img class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+								}else{//로그인한 회원이 글 작성자가 아닐 경우
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><img style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_img" src='+result[i].fi_Nm+'></a></div>');
+								}
+							}
+						}else if(result[i].fi_Nm.includes('mp4') || result[i].fi_Nm.includes('avi')){
+							if((now.getTime()-res.getTime())/(1000*60*60*24) >= 1){
+								$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+							}else if(${user_Code}==1){
+								$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+							}else{
+								//로그인한 회원이 글 작성자인경우 다 보여줌
+								if(${user_Code}==result[i].res_UCode){
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><video class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+								}else{//로그인한 회원이 글 작성자가 아닐 경우
+									$(".horizontal-scroll-wrapper").append('<div><a href="/board/detail?req_No='+result[i].req_No+'"><div class="modal"><div class="modal_body">1000 P</div></div><video style="filter:blur(7px); -webkit-filter:blur(7px)" class="detail_video" controls ><source src='+result[i].fi_Nm+'></video></a></div>');
+								}
+							}
+						}
+					}
+					
+					if(result.length < 3){
+						$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+						$(".horizontal-scroll-wrapper").append('<div>추가 정보가 없습니다.</div>');
+					}
+					*/
+				},
+			error : function(){
+				console.log("ajax 에러");
 			}
-		};
+		})
+	};
+	
+	//블러 처리 남은 시간 구하는 함수
+	function remaindTime() {
+	    var now = new Date(); //현재시간을 구한다. 
+	    var et = $('#wdate').text(); //파일이 업로드 된 시간.
 
-		window.SearchOnList = SearchOnList;
-	})();
-
-	SearchOnList.init($('[data-behaviour=search-on-list]'));
-</script>
-
+	    var nt = now.getTime(); // 현재의 시간만 가져온다
+	  
+	     sec = 24*60*60*1000 - parseInt(nt-et)/1000;
+	     day  = parseInt(sec/60/60/24);
+	     sec = (sec - (day * 60 * 60 * 24));
+	     hour = parseInt(sec/60/60);
+	     sec = (sec - (hour*60*60));
+	     min = parseInt(sec/60);
+	     sec = parseInt(sec-(min*60));
+	     if(hour<10){hour="0"+hour;}
+	     if(min<10){min="0"+min;}
+	     if(sec<10){sec="0"+sec;}
+	      $('.modal_body').html("<div style='font-size:15pt'>1000P</div>블러 해제: "+hour+"시"+min+"분"+sec+"초");
+	};
+	
+	setInterval(remaindTime,1000);
+	
+	
+	</script>
+</body>
 
 </html>
 

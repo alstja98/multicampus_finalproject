@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<title>Waggle 문의글 목록</title>
+<link rel="icon" href="/images/importToJsp/favicon.png">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" 
+	rel="stylesheet"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style type="text/css">
@@ -36,7 +39,7 @@
 
 .guideline-all p {
 	display: inline-block;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .notice h1 {
@@ -88,10 +91,8 @@ input[id="tab03"]:checked ~ .con3 {
 }
 
 .accordion {
-  font-size: 1rem;
-  width: 50vw;
+  width: 60vw;
   margin: 0 auto;
-  border-radius: 5px;
 }
 
 .accordion-all {
@@ -105,22 +106,23 @@ input[id="tab03"]:checked ~ .con3 {
 }
 
 .accordion-header {
-  padding: 2.5em 2.5em;
+  padding: 1em 2em;
   background: #fff;
   color: #151515;
   cursor: pointer;
-  font-size: .8em;
+  font-size: 16px;
   letter-spacing: .1em;
   transition: all .3s;
   text-transform: uppercase;
+  text-align:left;
 }
 
 .accordion__item {
-    border-bottom: 1px solid #151515;
+    border-bottom: 1px solid #dfdfdf;
 }
 
 .accordion__item .accordion__item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #dfdfdf;
 }
 
 .accordion-header:hover {
@@ -130,15 +132,14 @@ input[id="tab03"]:checked ~ .con3 {
 }
 
 .accordion-body {
-  background: #fcfcfc;
+  background: #fafafa;
   color: #353535;
   display: none;
 }
 
 .accordion-body__contents {
-  padding: 2.8em 2.8em;
-  font-size: .8em;
-  border-top: 1px solid;
+  padding: 1em 2.3em;
+  font-size: 15px;
 }
 
 .accordion__item.active:last-child .accordion-header {
@@ -184,30 +185,23 @@ input[id="tab03"]:checked ~ .con3 {
 } */
 
 button {
- background-color: #151515;
- border-radius: 8px;
- border-style: none;
- box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
- box-sizing: border-box;
+ font-weight: 600;
  color: #fff;
- font-size: 12px;
- font-weight: 500;
+ background-color: #222;
+ border-radius: 12px;
+ border: none;
+ font-size: 13px;
  font-family: inherit;
- letter-spacing: .25px;
+ letter-spacing: .14px;
  line-height: normal;
  padding: 11px 11px;
- transition: background box-shadow 280ms ease;
-}
-
-button:hover {
- background: #fff;
- color: #151515;
+ cursor: pointer;
 }
 
 button:active {
- box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
  outline: none;
- border: 1px solid #ffffff;
+ border: none;
+ background-color: #353535;
 }
 
 .Inquiry-category {
@@ -239,6 +233,105 @@ button:active {
     right: 19%;
 }
 
+#Inquiry-title {
+	text-decoration: none;
+	color: #222;
+	letter-spacing: .55px;
+	font-size: 15px;
+}
+
+#Inquiry-title:visited {
+	color: #222;
+	letter-spacing: 1px;
+	font-size: 15px;
+}
+
+.paging {
+	text-align: center;
+}
+
+.paging li {
+	list-style: none;
+	display: inline-block;
+}
+
+.nowpage {
+	font-weight: bold;
+	color: #000000 !important;
+}
+ 
+#paging-a {
+	text-decoration: none;
+	padding: 8px;
+	color: #878787;
+}
+
+#paging-a:visited {
+	color: #878787;
+}
+
+.paging-a {
+	text-decoration: none;
+	padding: 8px;
+	color: #878787;
+}
+
+.paging-a:visited {
+	color: #878787;
+}
+
+#create{
+	position: absolute;
+    right: 400px;
+}
+
+.question-q {
+	color: rgb(52, 106, 255);
+	display:inline-block;
+}
+
+.question-a{
+	zoom:1.2 !important;
+	float:left !important;
+	color:rgb(125, 157, 239);
+}
+
+.question-content{
+	display:inline-block;
+	margin-left:65px;
+}
+
+.question-q-title {
+    display: inline-block;
+    margin-left:50px;
+    margin-bottom:10px;
+    margin-top:10px;
+}
+
+.question-icon1 {
+	display: inline-block;
+	transform: rotate(90deg);
+	float:right;
+	line-height:2em;
+	zoom:1.5;
+	color:#888888;
+}
+
+.question-icon2 {
+	display: inline-block;
+	transform: rotate(270deg);
+}
+
+.notice-title {
+	display: inline-block;
+}
+
+.notice-ymd {
+	font-size:13px;
+	color:#888888;
+}
+
+
 
 </style>
 </head>
@@ -251,7 +344,7 @@ button:active {
         		<li><a href="javascript:void(0)">
         		<i class="fa-solid fa-house"></i>
         		</a>
-        		<p>HOME > 공지사항</p>
+        		<p>HOME > 고객센터</p>
         		</li>	
         	</ul>
 		</div>
@@ -272,181 +365,72 @@ button:active {
 	 	 			<br/><br/><br/>
 	 	 			
 	 	 			<div class="conbox con1">
-	 	 			<div class="accordion-all">
-	 	 				<div class="accordion js-accordion">
-						  <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">[공지]  waggle 개인정보 처리방침 개정 안내</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						    안녕하세요.<br/>
-	 	 					Probee waggle입니다.<br/>waggle을 이용해 주시는 고객님께 진심으로 감사드립니다.<br/>
-	 	 					㈜Probee는 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스 관련 법규상의 개인정보 보호 규정을 준수하며, 관련 법령에 의거한 개인정보처리방침을 정하여 사용자의 권익 보호를 위해 노력하고 있습니다.<br/>
-	 	 					아래와 같이 개인정보처리방침 개정될 예정임을 안내드리오니, 확인 후 이용에 참고하시기 바랍니다.<br/>
-	 	 					<br/>(1) 개정일정 :<br/>
-							<br/>공고일자 : 2022년 3월 29일<br/>
-							<br/>시행일자 : 2022년 3월 30일<br/>
-							<br/>(2) 주요 개정 내용 : 개인정보의 수집•이용 목적•항목•수집방법, 개인정보 처리 및 보유기간, 권익침해 구제방법 등
-							<br/><br/>
+	 	 			<div class="accordion-all"> <!-- 여기서 부터 -->
+	 	 				<div class="accordion js-accordion" id="list">
+	 	 				
+						 
+						  <c:forEach items="${list2 }" var="dto">
+						  <c:if test="${dto.no_Type == '공지' }">
+			                <div class="accordion__item js-accordion-item">
+						    <div class="accordion-header js-accordion-header">
+						    <div class="notice-title">
+						    [공지] ${dto.no_Title } 
 						    </div>
-						     
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						  <div class="accordion__item js-accordion-item active">
-						    <div class="accordion-header js-accordion-header">[공지]  waggle 개인정보 처리방침 개정 안내</div> 
+						    <div class="question-icon1"><i class="fa-solid fa-angle-right"></i></div> 
+						    <div class="notice-ymd"><fmt:formatDate value="${dto.no_Date}" pattern="yyyy-MM-dd"/></div></div>
 						  <div class="accordion-body js-accordion-body">
 						    <div class="accordion-body__contents">
 						    <br/><br/>
-						    안녕하세요.<br/>
-	 	 					Probee waggle입니다.<br/>waggle을 이용해 주시는 고객님께 진심으로 감사드립니다.<br/>
-	 	 					㈜Probee는 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스 관련 법규상의 개인정보 보호 규정을 준수하며, 관련 법령에 의거한 개인정보처리방침을 정하여 사용자의 권익 보호를 위해 노력하고 있습니다.<br/>
-	 	 					아래와 같이 개인정보처리방침 개정될 예정임을 안내드리오니, 확인 후 이용에 참고하시기 바랍니다.<br/>
-	 	 					<br/>(1) 개정일정 :<br/>
-							<br/>공고일자 : 2022년 3월 29일<br/>
-							<br/>시행일자 : 2022년 3월 30일<br/>
-							<br/>(2) 주요 개정 내용 : 개인정보의 수집•이용 목적•항목•수집방법, 개인정보 처리 및 보유기간, 권익침해 구제방법 등
-							<br/><br/>
-						    </div>
-						      
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						    <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">[공지]  waggle 개인정보 처리방침 개정 안내</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						    안녕하세요.<br/>
-	 	 					Probee waggle입니다.<br/>waggle을 이용해 주시는 고객님께 진심으로 감사드립니다.<br/>
-	 	 					㈜Probee는 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스 관련 법규상의 개인정보 보호 규정을 준수하며, 관련 법령에 의거한 개인정보처리방침을 정하여 사용자의 권익 보호를 위해 노력하고 있습니다.<br/>
-	 	 					아래와 같이 개인정보처리방침 개정될 예정임을 안내드리오니, 확인 후 이용에 참고하시기 바랍니다.<br/>
-	 	 					<br/>(1) 개정일정 :<br/>
-							<br/>공고일자 : 2022년 3월 29일<br/>
-							<br/>시행일자 : 2022년 3월 30일<br/>
-							<br/>(2) 주요 개정 내용 : 개인정보의 수집•이용 목적•항목•수집방법, 개인정보 처리 및 보유기간, 권익침해 구제방법 등
+						   	${dto.no_Content }
+						   	<br>
+							<br/>공고일자 : <fmt:formatDate value="${dto.no_Date}" pattern="yyyy년 MM월 dd일"/><br/>
 							<br/><br/>
 						    </div>
 						    </div><!-- end of accordion body -->
 						  </div><!-- end of accordion item -->
+						 	</c:if>
+			               </c:forEach>
 						  
-						     <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">[공지]  waggle 개인정보 처리방침 개정 안내</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						    안녕하세요.<br/>
-	 	 					Probee waggle입니다.<br/>waggle을 이용해 주시는 고객님께 진심으로 감사드립니다.<br/>
-	 	 					㈜Probee는 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스 관련 법규상의 개인정보 보호 규정을 준수하며, 관련 법령에 의거한 개인정보처리방침을 정하여 사용자의 권익 보호를 위해 노력하고 있습니다.<br/>
-	 	 					아래와 같이 개인정보처리방침 개정될 예정임을 안내드리오니, 확인 후 이용에 참고하시기 바랍니다.<br/>
-	 	 					<br/>(1) 개정일정 :<br/>
-							<br/>공고일자 : 2022년 3월 29일<br/>
-							<br/>시행일자 : 2022년 3월 30일<br/>
-							<br/>(2) 주요 개정 내용 : 개인정보의 수집•이용 목적•항목•수집방법, 개인정보 처리 및 보유기간, 권익침해 구제방법 등
-							<br/><br/>
-						    </div>
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						  
-						     <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">[공지]  waggle 개인정보 처리방침 개정 안내</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						    안녕하세요.<br/>
-	 	 					Probee waggle입니다.<br/>waggle을 이용해 주시는 고객님께 진심으로 감사드립니다.<br/>
-	 	 					㈜Probee는 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스 관련 법규상의 개인정보 보호 규정을 준수하며, 관련 법령에 의거한 개인정보처리방침을 정하여 사용자의 권익 보호를 위해 노력하고 있습니다.<br/>
-	 	 					아래와 같이 개인정보처리방침 개정될 예정임을 안내드리오니, 확인 후 이용에 참고하시기 바랍니다.<br/>
-	 	 					<br/>(1) 개정일정 :<br/>
-							<br/>공고일자 : 2022년 3월 29일<br/>
-							<br/>시행일자 : 2022년 3월 30일<br/>
-							<br/>(2) 주요 개정 내용 : 개인정보의 수집•이용 목적•항목•수집방법, 개인정보 처리 및 보유기간, 권익침해 구제방법 등
-							<br/><br/>
-						    </div>
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-  
-    
 	 	 				</div>
+	 	 			</div> <!-- 여기 까지 -->
 	 	 			</div>
-	 	 			</div>	
+	 	 				
 	 	 			
 	 	 			<div class="conbox con2">
 	 	 				<div class="accordion js-accordion">
-						  <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">Q. waggle은 어떤 서비스인가요?</div> 
+	 	 			
+						  <c:forEach items="${list2 }" var="dto">
+						  <c:if test="${dto.no_Type == '질문' }">
+			                <div class="accordion__item js-accordion-item">
+						    <div class="accordion-header js-accordion-header">
+						    
+						     <div class="question-q">Q</div>
+						     <div class="question-q-title">${dto.no_Title }</div>
+						      <div class="question-icon1"><i class="fa-solid fa-angle-right"></i></div>
+						      
+						      </div> 
 						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
+						    <div class="accordion-body__contents" style="text-align:left;">
 						    <br/><br/>
-						    이사를 위한 집에대한 이전 리뷰 기록을 조회할 수 있는 정보 열람 기능과<br/> 
-							직접 탐색할 추가 정보를 요청할 수 있는 정보요청 서비스를 제공하는 플랫폼이에요!<br/><br/>
-	 	 					부동산 플랫폼 상에서 직접 탐색하고 싶은 매물을 찾았을 때,<br/>
-	 	 					해당 매물 주변에 거주하는 사람에게 요청함으로써 물리, 시간적 절약을 도모하여 효율성을 높였습니다!<br/>
-							같은 사용자 입장으로 부터 정보를 얻도록 하여, 정보의 신뢰성을 높이고자 만들게 되었습니다.<br/>
+						    <div class="question-q question-a" >A</div>
+						    <div class="question-content">
+						   	${dto.no_Content }
+						   	</div>
 							<br/><br/>
 						    </div>
-						     
 						    </div><!-- end of accordion body -->
 						  </div><!-- end of accordion item -->
-						  
-						  <div class="accordion__item js-accordion-item active">
-						    <div class="accordion-header js-accordion-header">Q. 회원가입을 하면 어떤 점이 좋나요?</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    안녕하세요.<br/>
-	 	 					
-						    </div>
-						      
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						  
-						  <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">Q. 등급은 어떻게 계산 되나요?</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						    등급은 내가 받은 평가, 거래 후기, 제재를 종합해서 계산합니다.<br/>
-							좋은 평가, 긍정적인 거래 후기를 받으면 등급이 올라요.<br/>
-							비매너 평가, 부정적인 거래 후기, 제재를 받으면 등급이 내려가요.<br/>
-							이 모든 지표가 계산되어 등급에 반영되기까지 7~10일 정도 걸릴 수 있어요.<br/>
-							최근 받은 평가와 긍정적인 거래 후기를 받았는데도 등급이 안 오른다면 조금만 더 기다려 주세요. :) <br/>
-							<br/><br/>	 					
-						    </div>
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						  
-						    <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">Q. 거래에 문제가 생겼어요!</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						  	'waggle'은 개인 간의 매칭을 돕는 중개 플랫폼으로서, 심부름/서비스 진행 중 발생한 피해에 대해서는 당사자 간에 합의를 해야 해요.<br/>
-						  	만약 의견 조율이 되지 않는다면,<br/>
-						  	[고객센터 > 1:1 문의하기]를 통해 고객센터로 연락해 주세요.<br/>
-						  	<br/><br/>
-						    </div>
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						  
-						     <div class="accordion__item js-accordion-item">
-						    <div class="accordion-header js-accordion-header">Q. 환불 규정이 궁금해요.</div> 
-						  <div class="accordion-body js-accordion-body">
-						    <div class="accordion-body__contents">
-						    <br/><br/>
-						    'waggle'은 고객과 대행인 간의 매칭을 도와드리는 중개 플랫폼으로서, 기본적으로 당사자 간의 결정을 중시하고 있어요.<br/>
-						    서로 합의된 내용을 기반하여 제공된 결과물에 대해서는 고객의 단순 변심으로 환불은 불가능해요.<br/>
-						    만약 대행인이 기존에 합의된 서비스 요청 내용을 이행하지 않았을 경우 [고객센터 > 1:1 문의하기]를 통해 고객센터에 즉각 신고해 주세요.<br/>
-						    경위 확인 후 서비스비는 전액 환불해 드리며, 해당 대행인은 즉시 활동 정지 조치되어요.<br/>
-						    <br/><br/>
-						    환불 시점은 결제사에 따라 차이가 있으며, 영업일 기준으로 1~3일 소요됩니다.<br/>
-						    <br/><br/>				
-						    </div>
-						    </div><!-- end of accordion body -->
-						  </div><!-- end of accordion item -->
-						  
-						     
-  
-    
+						 	</c:if>
+			               </c:forEach>
+
 	 	 				</div>
 	 	 			</div>
+	 	 			<c:if test="${user_Code == 1 }">
+	 	 			<br>
+	 	 			<div style="width: 1135px;">
+	 	 			<button  id="create" onclick="location.href='/notice/insertform'">공지 작성</button>
+	 	 			</div>
+	 	 			</c:if>
 	 	 			<br/>
 	 	 			<div class="conbox con3">
 	 	 				<table class="Inquiry-category">
@@ -459,6 +443,8 @@ button:active {
 			                  </tr>
 			               </thead>
 				            <tbody>
+				            
+			                   <c:if test="${user_Nm ne 'admin' }">
 			                  <c:choose>
 			                     <c:when test="${empty list }">
 			                        <tr>
@@ -469,25 +455,86 @@ button:active {
 			                        <c:forEach items="${list }" var="dto">
 			                           <tr class="Inquiry-content">
 			                              <td>${dto.in_Type }</td>
-			                              <td><a href="/inquiry/detail?in_Code=${dto.in_Code }">${dto.in_Title }</a></td>
+			                              <td><a id="Inquiry-title" href="/inquiry/detail?in_Code=${dto.in_Code }">${dto.in_Title }</a></td>
 			                              <td>${dto.in_Date }</td>
 			                              <td>${dto.in_Stat }</td>
 			                           </tr>
 			                        </c:forEach>
 			                     </c:otherwise>
 			                  </c:choose>
+			                  </c:if>
+			                  
+			                  <c:if test="${user_Nm eq 'admin' }">
+			                    <c:choose>
+			                     <c:when test="${empty alist }">
+			                        <tr>
+			                           <td colspan="4" class="Inquiry-content">문의 내용이 없습니다.</td>
+			                        </tr>
+			                     </c:when>
+			                     <c:otherwise>
+			                        <c:forEach items="${alist }" var="dto">
+			                           <tr class="Inquiry-content">
+			                              <td>${dto.in_Type }</td>
+			                              <td><a id="Inquiry-title" href="/inquiry/detail?in_Code=${dto.in_Code }">${dto.in_Title }</a></td>
+			                              <td>${dto.in_Date }</td>
+			                              <td id="stat-btn">${dto.in_Stat }</td>
+			                           </tr>
+			                        </c:forEach>
+			                     </c:otherwise>
+			                  </c:choose>
+			                  </c:if>
+			                  
 			               </tbody>   
 				          <tr>
 				         <td class="btn1" colspan="2" align="right">
-				         	<button type="button" value="문의" onclick="location.href='/inquiry/insertform'">문의 작성</button>      
+				         	<c:if test="${user_Nm ne 'admin'}">
+						    <div class="btn-admin" id="btn-admin">
+						     <button type="button" value="문의" onclick="location.href='/inquiry/insertform'">문의 작성</button>
+						    </div>
+	    					</c:if>   
 				         </td>   
 				           </tr>    
 				          	</table>
-				          
-	 	 				
-	 	 			
-  				
-  
+				          	
+				          	<c:if test="${user_Nm ne 'admin' }">
+				          	<ul class="paging">
+	 	 						<c:if test="${paging1.prev}">        
+	 	 							<li class="paging">
+	 	 								<a class="paging-a" href='<c:url value="/inquiry/list?user_Code=${user_Code }&page=${paging1.startPage-1}"/>'>이전</a>
+	 	 							</li>    
+	 	 						</c:if>
+	 	 						<c:forEach begin="${paging1.startPage}" end="${paging1.endPage}" var="num">
+	 	 							<li>
+	 	 								<a id="paging-a" class="${paging1.cri.page == num ? 'nowpage' : null }" href='<c:url value="/inquiry/list?user_Code=${user_Code }&page=${num}"/>'>${num}</a>
+	 	 							</li>    
+	 	 						</c:forEach>
+	 	 						<c:if test="${paging1.next && paging1.endPage > 0}">        
+	 	 							<li>
+	 	 								<a class="paging-a" href='<c:url value="/inquiry/list?user_Code=${user_Code }&page=${paging1.endPage+1}"/>'>다음</a>
+	 	 							</li>    
+	 	 						</c:if>
+	 	 					</ul>
+				          	</c:if>
+				          	
+				          	<c:if test="${user_Nm eq 'admin' }">
+				          	<ul class="paging">
+	 	 						<c:if test="${paging2.prev}">        
+	 	 							<li class="paging">
+	 	 								<a class="paging-a" href='<c:url value="/inquiry/list?user_Code=${user_Code }&page=${paging2.startPage-1}"/>'>이전</a>
+	 	 							</li>    
+	 	 						</c:if>
+	 	 						<c:forEach begin="${paging2.startPage}" end="${paging2.endPage}" var="num">
+	 	 							<li>
+	 	 								<a id="paging-a" class="${paging1.cri.page == num ? 'nowpage' : null }" href='<c:url value="/inquiry/list?user_Code=${user_Code }&page=${num}"/>'>${num}</a>
+	 	 							</li>    
+	 	 						</c:forEach>
+	 	 						<c:if test="${paging2.next && paging2.endPage > 0}">        
+	 	 							<li>
+	 	 								<a class="paging-a" href='<c:url value="/inquiry/list?user_Code=${user_Code }&page=${paging2.endPage+1}"/>'>다음</a>
+	 	 							</li>    
+	 	 						</c:if>
+	 	 					</ul>
+				          	</c:if>
 		 </div>
  	</div>
  	</div>
@@ -501,7 +548,7 @@ button:active {
 	  var $accordion = $('.js-accordion');
 	  var $accordion_header = $accordion.find('.js-accordion-header');
 	  var $accordion_item = $('.js-accordion-item');
-	 
+	  
 	  // default settings 
 	  var settings = {
 	    // animation speed
@@ -547,6 +594,25 @@ button:active {
 
 	$(document).ready(function(){
 	  accordion.init({ speed: 300, oneOpen: true });
+	  
+	  
+	  $(function(){
+		  
+		  $("#tab03").on("click",function(){
+			  $("#create").css("display", "none");
+		  });
+		  $("#tab01").on("click",function(){
+			  $("#create").show();
+		  });
+		  $("#tab02").on("click",function(){
+			  $("#create").show();
+		  });
+	  })
+	  
+	  
 	});
+	
+	
+	
 </script>
 </html>

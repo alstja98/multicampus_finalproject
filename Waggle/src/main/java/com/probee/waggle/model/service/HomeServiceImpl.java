@@ -13,14 +13,13 @@ public class HomeServiceImpl implements HomeService{
 	HomeMapper homeMapper;
 
 	@Override
-	public HomeDto selectHome(int homecode) {
-		// TODO Auto-generated method stub
-		return null;
+	public HomeDto selectHome(int home_Code) {
+		return homeMapper.selectHome(home_Code);
 	}
 
 	@Override
-	public HomeDto findHome(HomeDto dto) {
-		return homeMapper.findHome(dto);
+	public HomeDto findHome(String home_Addr, String ji_Addr, String road_Addr, String home_DAddr) {
+		return homeMapper.findHome(home_Addr, ji_Addr, road_Addr, home_DAddr);
 	}
 
 	@Override

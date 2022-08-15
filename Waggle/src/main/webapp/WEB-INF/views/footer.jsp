@@ -26,16 +26,20 @@ body {
 
 #wrap {
     min-height: 100vh;
+    min-width: 1189px;
+    overflow:hidden;
     height: 100%;
+    padding-top: 107px;
     padding-bottom: 50px;
 }
 
 footer {
   height: 200px;
-  border-top: 1px solid #151515;
-  margin: 40px;
+  margin: 40px 0px 0px 0px;
+  padding: 20px 40px 20px 40px;
   position: relative;
   font-size: 12px;
+  background-color: #F7F9FA;
 }
 
 footer .footer-left {
@@ -114,9 +118,19 @@ footer .footer-right .service-center li p {
   	font-size: 12px;
 }
 
-a {
+#f-btn {
 	color: #878787;
 	text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+@media (max-width:900px) {
+	.info {
+		display: none;
+	}
 }
 
 </style>
@@ -142,14 +156,14 @@ a {
     <div class="footer-right">
       <ul class="follow-us">
         <h4>Follow Us</h4>
-        <li><a href="javascript:void(0)">
+        <li><a id="f-btn" href="javascript:void(0)">
           <i class="fa-brands fa-facebook"></i>
         </a>
         </li>
-        <li><a href="javascript:void(0)">
+        <li><a id="f-btn" href="javascript:void(0)">
           <i class="fa-brands fa-youtube"></i>
         </a></li>
-        <li><a href="javascript:void(0)">
+        <li><a id="f-btn" href="javascript:void(0)">
           <i class="fa-brands fa-instagram"></i>
         </a></li>
       </ul>
@@ -158,7 +172,7 @@ a {
         
         <c:if test="${user_Code == null }">
         <li>
-          <a href="javascript:void(0)" onclick="location.href='/login'">
+          <a id="f-btn" href="javascript:void(0)" onclick="location.href='/login'">
             <i class="fa-solid fa-headset"></i>
             <p>문의</p>
           </a>
@@ -167,7 +181,7 @@ a {
 		
 		<c:if test="${user_Code != null }">
         <li>
-          <a href="javascript:void(0)" onclick="location.href='/inquiry/list?user_Code=${user_Code}'">
+          <a id="f-btn" href="javascript:void(0)" onclick="location.href='/inquiry/list?user_Code=${user_Code}'">
             <i class="fa-solid fa-headset"></i>
             <p>문의</p>
           </a>
@@ -176,7 +190,7 @@ a {
 		
 		<c:if test="${user_Code == null }">  
         <li>
-          <a href="javascript:void(0)" onclick="location.href='/login'">
+          <a id="f-btn" href="javascript:void(0)" onclick="location.href='/login'">
             <i class="fa-solid fa-book"></i>
             <p>도움말</p>
           </a>
@@ -185,7 +199,7 @@ a {
         
         <c:if test="${user_Code != null }">  
         <li>
-          <a href="javascript:void(0)" onclick="location.href='/inquiry/list?user_Code=${user_Code}'">
+          <a id="f-btn" href="javascript:void(0)" onclick="location.href='/inquiry/list?user_Code=${user_Code}'">
             <i class="fa-solid fa-book"></i>
             <p>도움말</p>
           </a>
@@ -193,7 +207,7 @@ a {
         </c:if>
         
         <li>
-          <a href="javascript:void(0)" onclick="showPopup();">
+          <a id="f-btn" href="javascript:void(0)" onclick="showPopup();">
           	<i class="fa-brands fa-rocketchat"></i>
           	<p>챗봇</p>
           </a>
@@ -205,8 +219,9 @@ a {
 </body>
 
 <script type="text/javascript">
-
-	function showPopup() { window.open("/chatbot", "a", "width=600, height=500, left=800, top=100");
+	var popupX = (document.body.offsetWidth);
+	var popupY = (document.body.offsetHeight);
+	function showPopup() { window.open("/chatbot", "a", "width=580, height=600, left="+popupX+", top="+popupY+"");
 		
 	}
 	

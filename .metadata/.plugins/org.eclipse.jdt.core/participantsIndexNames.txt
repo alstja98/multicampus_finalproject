@@ -1,3 +1,5 @@
 INDEX VERSION 1.131
+C:\workspace\WaggleProject\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1790884761.index
+\Waggle\src\main\java
 C:\workspace\WaggleProject\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2451355439.index
 \Waggle\src\main\java
